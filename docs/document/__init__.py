@@ -1,3 +1,3 @@
 """Base class for a document object"""
 
-from docs.document import Document
+from docs.document.document import Document
