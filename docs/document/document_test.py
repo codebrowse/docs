@@ -10,10 +10,8 @@ file_path = os.path.relpath(
   os.path.join(os.path.abspath(__file__), '../', 'file.py')
 )
 
-
 def test_document_filename():
   doc = Document(filename=file_path)
-  print doc.filename
   assert doc.filename == file_path, 'Did not receive expected path'
 
 
@@ -48,7 +46,7 @@ def test_open_document():
 
 
 def test_repr():
-  doc = Document('file')
+  doc = Document('file', filename=file_path)
 
   assert str(doc) == '<[doc] file>', 'did not get expected repr result'
 

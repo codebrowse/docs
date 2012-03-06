@@ -1,13 +1,18 @@
 Python Docs
 ===========
 
-#### A PEP 257 API for Developers####
+#### A Python Documentation API for Developers####
+
+Michael Van Veen
 
 <img src='press.jpg' width='600' />
 
-Python has wonderful first-class support for documentation.  Unfortunately, this incredibly thoughtful feature of the language is hidden behind large, monolithic suites or outdated, unsupported pieces of spaghetti.  Up until now, we haven't had easy programatic access to our source code and documentation.
 
-No longer.  Docs is a PEP 257 API for Developers.
+Python has wonderful, first-class support for documentation.  Unfortunately, this incredibly thoughtful feature of the language is hidden behind large, monolithic suites or outdated, unsupported pieces of spaghetti.
+
+Up until now, we haven't had easy programatic access to our source code and documentation.  
+
+No longer.  Docs is a Python Documentation API I for Developers.  Our language is dynamic.  It's time for our documentation to start acting like it.
 
 ## Features
 
@@ -15,6 +20,7 @@ Python Docs provides easy access to the following items:
 
 ### Modules
 - function name
+- 
 - author
 - version
 - python path
@@ -107,27 +113,25 @@ Python Docs provides easy access to the following items:
 
 **A:**Python Docs is an attempt to create a great API to facilitate easy access to documentation and source primitives within Python.
 
-My intent is to construct a solid base for the development of the documentation and refactoring libraries and tools I want to see for Python.
+My intent is to construct a solid base for the development of the documentation/refactoring libraries and tools I want to see for Python.
 
 I hope that you find it useful for your own purposes!  Please feel free to contribute :-)
 
 **Q:** Why not Sphinx?
 
-**A:**  **Disclaimer:** I have admittedly never really gotten that far into Sphinx.  Please take the following with a grain of salt.  I think Sphinx is great for a wide class of applications, but I'm personally not happy with it.  I think `autodoc` looks cool, but haven't had a chance to check it out.
+**A:** **Disclaimer:** I have admittedly never really gotten that far into Sphinx.  Please take the following with a grain of salt.
 
-Overall I think Sphinx feels too heavy for me, and this has been a significant reason why I have never delved into it.
+I think Python Docs & Sphinx have seperate, but mutually-beneficial goals.
 
-My leanings away from Sphinx were only exacerbated by the fact that I am a big fan of Markdown, and prefer to use that in my docstrings over learning REstructured Text.
-
-The space of Markdown documentation tools supporting docstrings is slim, so I hunted around the space of Python documentation libraries.  I came up empty handed.
+Python Docs is a Documentation API.  Sphinx is a documention tool.  Documentation tools are just one possible use case for Python Docs.
 
 **Q:** I don't get it.  Isn't having `__doc__ ` on objects enough?
 
 **A:** Unfortunately, no!  `__doc__` is a great start, but it's simply not enough.  Just getting module-level docstrings, ends up being rather difficult, as modules don't have `__doc__` attributes.
 
-Furthermore, `__doc__` attributes are only useful if you have a live object on your hands.  This is not always the case!  Python Docs attempts to support the various ways in which people attempt to parse documentation: as a live object, as an import available accessible from `sys.path`, or as a file object or string.
+In fact, `__doc__` attributes are only useful if you have a live object on your hands.  This is not always the case!  Python Docs attempts to support the various ways in which people attempt to parse documentation: as a live object, as an import available accessible from `sys.path`, or as a file object or string.
 
-In fact, on its own, `__doc__` isn't entirely useful as a documentation API.  Python Docs attempts to give a more complete picture by providing other metadata like `__author__` and `__version__`, as well as other niceties like python paths, line numbers, file paths, attributes, and even the source!
+Furthermore, on its own, `__doc__` isn't entirely useful as a documentation API.  Python Docs attempts to give a more complete picture by providing other metadata like `__author__` and `__version__`, as well as other niceties like python paths, line numbers, file paths, attributes, and even the source!
 
 **Q:** How are you able to support so many different types of parsing?
 
@@ -137,9 +141,12 @@ In fact, on its own, `__doc__` isn't entirely useful as a documentation API.  Py
 
 ### Influences
 
+- `Pydoc`, a somewhat hacky, ugly, yet incredibly wonderful Python documentation tool and `stdlib` module.
+- [PEP 257][pep257], "Docstring Conventions"
+- http://www.python.org/dev/peps/pep-0345/
+- http://mail.python.org/pipermail/python-dev/2001-March/013342.html
 - Docco, an excellent markdown-based literate programming tool, and Tacco, my unfinished sketch of a clone which uses docstrings.
 
-- `Pydoc`, a somewhat hacky, yet incredibly wonderful Python documentation tool and `stdlib` module.
 
 ### License
 

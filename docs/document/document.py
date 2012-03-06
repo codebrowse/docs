@@ -20,17 +20,15 @@ class Document(object):
   """Base class for a document object"""
 
   #TODO: property for python path
-
+  _doc_type = 'doc'
   def __init__(self, name=None, filename=None, line_no=None, source=None,
-              doc_type=None, *args, **kw):
+              _type=None, doc_type=None, *args, **kw):
 
     super(Document, self).__init__(*args, **kw)
     self._line_no  = int(line_no) if line_no else None
     self._filename = self._get_filename(filename, name)
-    print filename
-    print self._filename
     self._name = self._get_name(filename, name)
-    self._type = doc_type
+    self._type = _type
 
     self._source = self._get_source(source)
 
@@ -41,7 +39,9 @@ class Document(object):
       return str(filename)
 
     elif name:
-      return '.'.join((name,'py'))
+      return os.path.abspath(
+        os.path.join(os.getcwd(), '.'.join((name,'py')))
+      )
 
 
   def _get_name(self, filename, name):
@@ -127,6 +127,6 @@ class Document(object):
   def __repr__(self, *args, **kw):
     doc_type = 'doc'
     if self._type:
-      doc_type = self._type
+      doc_type = self._doc_type
 
     return '<[%s] %s>' % (doc_type, self._name)
