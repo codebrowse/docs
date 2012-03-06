@@ -5,7 +5,7 @@ Python Docs
 
 Michael Van Veen
 
-<img src='press.jpg' width='600' />
+![](https://github.com/mvanveen/docs/raw/master/press.jpg)
 
 
 Python has wonderful, first-class support for documentation.  Unfortunately, this incredibly thoughtful feature of the language is hidden behind large, monolithic suites or outdated, unsupported pieces of spaghetti.
