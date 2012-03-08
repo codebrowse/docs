@@ -1,0 +1,2 @@
+"""Represents a module object
+"""
