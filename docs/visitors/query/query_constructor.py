@@ -1,20 +1,25 @@
 from docs.visitors.query.query import QueryVisitor
 
 class QueryConstructor(object):
-  """
+  """Wraps QueryVisitor and constructs custom query from kwargs and ast type
+
+  **Get function definitions from `ast` module**
+
   >>> import ast
   >>> import inspect
-  >>>
   >>> source = ast.parse(inspect.getsource(ast))
   >>> q = QueryConstructor(ast.FunctionDef)
   >>> q.visit(source)
   >>> len(q.results)
   16
 
+  **Get function definition from `ast` module at line 32**
+
   >>> q = QueryConstructor(ast.FunctionDef, lineno=32)
   >>> q.visit(source)
   >>> len(q.results)
   1
+
   """
   def __init__(self, ast_type, *args, **kw):
     super(QueryConstructor, self).__init__()
