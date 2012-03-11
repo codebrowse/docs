@@ -26,7 +26,6 @@ class Document(object):
   _doc_type = 'doc'
   def __init__(self, name=None, filename=None, source=None,
               _type=None, doc_type=None, *args, **kw):
-
     super(Document, self).__init__()
     self._filename = self._get_filename(filename, name)
     self._name = self._get_name(filename, name)
@@ -39,6 +38,7 @@ class Document(object):
     """Private method called by constructor to setup filename"""
     if filename:
       return str(filename)
+
 
     elif name:
       return os.path.abspath(
@@ -125,6 +125,7 @@ class Document(object):
       doc_type = self._doc_type
 
     return '<[%s] %s>' % (doc_type, self._name)
+
 
   def __str__(self, *args, **kw):
     return self.source

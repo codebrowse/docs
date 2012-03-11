@@ -1,6 +1,6 @@
 import ast
 import re
-from docs.visitors.query.node import Node
+from docs.visitors.node import Node
 
 
 def safe_eval(query, node, *args, **kw):

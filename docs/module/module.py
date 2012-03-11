@@ -5,7 +5,8 @@ from docs.visitors.query import QueryConstructor
 
 __author__ = ['Michael Van Veen (michael@mvanveen.net)']
 METADATA = [
-  'copyright', 'credits', 'license', 'version', 'maintainer', 'email', 'status'
+  'copyright', 'credits', 'license', 'version', 'maintainer',
+  'email',  'status'
 ]
 
 class Module(Document):
@@ -35,7 +36,7 @@ class Module(Document):
     super(Module, self).__init__(*args, **kw)
 
     map( # set metadata properties on the object
-      lambda: setattr(self, x, property(fget=lambda x: self.get_var(x))),
+      lambda x: setattr(self, x, self.get_var('__' + x + '__')),
       METADATA
     )
 
@@ -44,23 +45,34 @@ class Module(Document):
     """Helper for getting module metadata like __author__"""
 
     variables = QueryConstructor(ast.Name, id=var)
-    variables = variables.visit(self.parsed)
-    result = variables.result[0].parent.value
+    variables.visit(self.parsed)
+
+    if variables.results:
+      result = variables.results[0].parent.value
+    else:
+      return []
 
     if isinstance(result, ast.Str):
-      return [authors.s]
+      return [result.s]
 
-    elif instance(result, ast.List):
+    elif isinstance(result, ast.List):
       return [x.s for x in result.elts]
 
-    return None
+    return []
 
+
+  @property
+  def authors(self):
+    """Returns a list of authors of a module"""
+    author = self.get_var('__author__')
+    authors = self.get_var('__authors__')
+    return author + authors
 
 
   @property
   def docstring(self):
     """Returns the module-level docstring."""
-    ast.docstring(self.parsed)
+    return ast.get_docstring(self.parsed)
 
 
   @property
@@ -84,15 +96,17 @@ class Module(Document):
     imports = QueryConstructor(ast.Import)
     import_froms = QueryConstructor(ast.ImportFrom)
 
-    return sorted(imports.results + import_froms, key=lambda x: x.lineno)
+    imports.visit(self.parsed)
+    import_froms.visit(self.parsed)
+
+    return sorted(imports.results + import_froms.results, key=lambda x: x.lineno)
 
 
   @property
   def assignments(self):
-     """Lists the assignments declared in the module.
+    """Lists the assignments declared in the module.
 
     Always returns a list.
     """
-
     return QueryConstructor(ast.Assign)
 

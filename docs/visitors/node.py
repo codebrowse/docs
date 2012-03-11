@@ -38,7 +38,11 @@ class Node(ast.AST):
         '_ast_obj').__getattribute__('_' + x)
 
     elif hasattr(super(Node, self).__getattribute__('_ast_obj'), x):
-      return super(Node, self).__getattribute__('_ast_obj').__getattribute__(x)
+      item = super(Node, self).__getattribute__('_ast_obj').__getattribute__(x)
+
+      if isinstance(item, ast.AST):
+        return Node(item, parent=super(Node, self).__getattribute__('_ast_obj'))
+      return item
 
     return super(Node, self).__getattribute__(x)
 

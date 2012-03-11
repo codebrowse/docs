@@ -37,6 +37,12 @@ def test_open_document():
   assert file_obj, 'Expected string!'
 
 
+def test_source():
+  doc = Document('file', filename=file_path)
+  with open(__file__, 'r') as file_obj:
+    assert doc.source == file_obj.read()
+
+
 def test_str():
   doc = Document('file', filename=file_path)
   with open(__file__, 'r') as file_obj:
