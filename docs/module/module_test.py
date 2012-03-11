@@ -1,4 +1,5 @@
 """Unit tests for Module class"""
+
 import ast
 import inspect
 import os
@@ -26,6 +27,7 @@ class TestModule(unittest.TestCase):
   def setUp(self):
     self.mod = Module(name='module_test', filename=__file__)
 
+
   def test_can_get_authors(self):
     assert any(['Michael Van Veen' in author for author in self.mod.authors]), \
       "Expected 'Michael Van Veen' to be in AUTHORS"
@@ -40,6 +42,7 @@ class TestModule(unittest.TestCase):
 
 
   def test_can_get_version(self):
+    #TODO: grab top-level init/include packages
     assert self.mod.version
 
 
@@ -59,27 +62,20 @@ class TestModule(unittest.TestCase):
     assert self.mod.status
 
 
-#def test_can_get_version():
-#  #todo: grab top-level init
-#  pass
+  def test_str(self):
+    with open(__file__, 'r') as file_obj:
+      assert str(self.mod) == file_obj.read()
 
 
-#def test_can_get_imports():
-#  mod = Module(name='module_test', filename=__file__)
-#  print mod.imports[1].level
-#  assert False
-#  assert os in mod.imports, \
-#    "Did not see os module as an import, but it is declared!"
-#
-#
+  def test_can_get_imports(self):
+    print self.mod.imports[3].names[0]._fields
+    assert False
+    assert os in mod.imports, \
+      "Did not see os module as an import, but it is declared!"
+
+
 #def test_can_get_vars():
-#  mod = Module(name='module_test', filename=__file__)
-#  assert '__author__' in mod.vars, \
+#  assert '__author__' in self.mod.vars, \
 #    "Expected '__author__' in module variables!"
 #
-#
-#def test_repr():
-#  mod = Module(name='module_test', filename=__file__)
-#  assert str(doc) == '<[module] module_tet>', 'did not get expected repr result'
-#
-#
+

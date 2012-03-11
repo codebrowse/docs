@@ -1,6 +1,9 @@
+"""Wrapper object for Python modules"""
+
 import ast
 
 from docs.document import Document
+#from docs.imports import Import
 from docs.visitors.query import QueryConstructor
 
 __author__ = ['Michael Van Veen (michael@mvanveen.net)']

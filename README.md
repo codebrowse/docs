@@ -5,12 +5,10 @@ Python Docs
 
 Michael Van Veen
 
-![](https://github.com/mvanveen/docs/raw/master/press.jpg)
+![Machine Simple](https://github.com/mvanveen/docs/raw/master/press.jpg)
 
 
-Python has wonderful, first-class support for documentation.  Unfortunately, this incredibly thoughtful feature of the language is hidden behind large, monolithic suites or outdated, unsupported pieces of spaghetti.
-
-Up until now, we haven't had easy programatic access to our source code and documentation.  
+Python has wonderful, first-class support for documentation.  Unfortunately, this incredibly thoughtful feature of the language is hidden behind large, monolithic suites or outdated, unsupported pieces of spaghetti.  Up until now, we haven't had easy programatic access to our source code and documentation.  
 
 No longer.  Docs is a Python Documentation API I for Developers.  Our language is dynamic.  It's time for our documentation to start acting like it.
 
@@ -19,6 +17,7 @@ No longer.  Docs is a Python Documentation API I for Developers.  Our language i
 Python Docs provides easy access to the following items:
 
 ### Modules
+- function names
 - author
 - version
 - python path
@@ -86,12 +85,24 @@ Python Docs provides easy access to the following items:
     < [module] str>
 
 
+### Object-oriented Documentation Representaitons
+
+**Modules**
+
+	>>> from docs.module import Module
+	>>> m = Module(filename='docs/module/module.py')
+	>>> m
+	<[doc] module>
+    >>> m.docstring
+    'Wrapper object for Python modules'
+    
 ### Helpers
 
 ** Get summary line of docstring **
 
     >>> docstring.get(obj).docstring.summary
 	'This is the summary line of this document's docstring'
+
 
 ** Get trimmed docstring (minus summary line) **
 
@@ -139,11 +150,15 @@ Furthermore, on its own, `__doc__` isn't entirely useful as a documentation API.
 
 - `Pydoc`, a somewhat hacky, ugly, yet incredibly wonderful Python documentation tool and `stdlib` module.
 - [PEP 257][pep257], "Docstring Conventions"
-- http://www.python.org/dev/peps/pep-0345/
-- http://mail.python.org/pipermail/python-dev/2001-March/013342.html
-- Docco, an excellent markdown-based literate programming tool, and Tacco, my unfinished sketch of a clone which uses docstrings.
-
+- [PEP 345](http://www.python.org/dev/peps/pep-0345/), "Metadata for Python Software Packages 1.2"
+- [http://mail.python.org/pipermail/python-dev/2001-March/013342.html](http://mail.python.org/pipermail/python-dev/2001-March/013342.html)
+- [Docco](http://jashkenas.github.com/docco/), an excellent markdown-based literate programming tool, and [Tacco](https://github.com/mvanveen/Tacco), my unfinished sketch of a clone which uses docstrings.
+- The wonderful `ast` and `inspect` modules.
 
 ### License
 
 Source code is MIT licensed.  Documentation is creative commons <insert here>.
+
+--mvv
+
+[pep257]: http://www.python.org/dev/peps/pep-0257/
