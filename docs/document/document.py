@@ -10,6 +10,7 @@ Examples
     'file.py'
     >>>
 """
+import ast
 import codecs
 import os
 
@@ -95,6 +96,17 @@ class Document(object):
     return os.path.relpath(self._line_no)
 
 
+  def parse(self):
+    """Returns parsed AST for a document
+    """
+    return ast.parse(self._source)
+
+  @property
+  def parsed(self):
+    """Returns the parsed AST for a document (as a property)."""
+    return self.parse()
+
+
   @property
   def source(self):
     """Returns source code for a document
@@ -130,3 +142,6 @@ class Document(object):
       doc_type = self._doc_type
 
     return '<[%s] %s>' % (doc_type, self._name)
+
+  def __str__(self, *args, **kw):
+    return self.source

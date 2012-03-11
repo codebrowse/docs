@@ -6,7 +6,7 @@ __author__ = ['Michael Van Veen (michael@mvanveen.net)']
 def test_can_construct_module():
   """Module doc object can be constructed with kwargs"""
 
-  mod = module(name='module_test`', filepath=os.path.abspath(__file__))
+  mod = Module(name='module_test`', filepath=os.path.abspath(__file__))
   assert mod, 'Could not construct module!'
 
 
@@ -14,13 +14,13 @@ def test_can_construct_module():
 def test_can_construct_module_with_mod():
   """Module doc object can be constructed with filepath"""
 
-  mod = module(__file__)
+  mod = Module(__file__)
   assert mod, 'Could not construct module!'
 
 
-def tet_can_get_author():
+def test_can_get_author():
   mod = module(__file__)
-  assert any(['Michael Van Veen' in author for author in mod.authors]),
+  assert any(['Michael Van Veen' in author for author in mod.authors]), \
     "Expected 'Michael Van Veen' to be in AUTHORS"
 
 
@@ -43,4 +43,5 @@ def test_repr():
   doc = module(__file__)
 
   assert str(doc) == '<[module] module_tet>', 'did not get expected repr result'
+
 

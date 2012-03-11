@@ -1,5 +1,5 @@
 import ast
-
+import re
 from docs.visitors.query.node import Node
 
 
@@ -29,13 +29,18 @@ class QueryVisitor(ast.NodeVisitor):
     super(QueryVisitor, self).__init__(*args, **kw)
     self._nodes = []
     self._query = query
+    self._parent = None
 
 
   def generic_visit(self, node, *args, **kw):
-    if safe_eval(self._query, node):
-      self._nodes.append(Node(node))
+    node = Node(node, parent=self._parent)
 
+    if safe_eval(self._query, node):
+      self._nodes.append(node)
+
+    self._parent = node
     super(QueryVisitor, self).generic_visit(node, *args, **kw)
+
 
   @property
   def results(self):
