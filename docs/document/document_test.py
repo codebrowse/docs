@@ -1,30 +1,22 @@
 """Unit tests for Document objects.  No pun inteded in filename."""
-
+import inspect
 import os
 
 from docs.document import Document
 
 __author__ = 'Michael Van Veen (michael@mvanveen.net)'
 
-file_path = os.path.relpath(
-  os.path.join(os.path.abspath(__file__), '../', 'file.py')
-)
+file_path = __file__
 
 def test_document_filename():
   doc = Document(filename=file_path)
-  assert doc.filename == file_path, 'Did not receive expected path'
+  assert doc.filename == os.path.relpath(file_path), 'Did not receive expected path'
 
 
 def test_document_name_construct_filename():
   doc = Document(filename=file_path)
 
-  assert doc.name == 'file', 'Expected document name to be set correctly'
-
-
-def test_document_lineno_none():
-  doc = Document(filename=file_path)
-
-  assert not doc.line_no, 'the line number should not be set'
+  assert doc.name == 'document_test', 'Expected document name to be set correctly'
 
 
 def test_document_source_construct_filename():
@@ -45,8 +37,7 @@ def test_open_document():
   assert file_obj, 'Expected string!'
 
 
-def test_repr():
+def test_str():
   doc = Document('file', filename=file_path)
-
-  assert str(doc) == '<[doc] file>', 'did not get expected repr result'
-
+  with open(__file__, 'r') as file_obj:
+    assert str(doc) == file_obj.read()

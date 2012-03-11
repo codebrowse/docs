@@ -4,11 +4,13 @@ Examples
 --------
 
 ### Ex 1. Constructing a document
+    >>> document = Document(name='document', filename=__file__)
+    >>> document.filename in (
+    ...  'docs/document/document.py',
+    ...  'docs/document/document.pyc'
+    ...  )
+    True
 
-    >>> document = Document(name='file', file_name='file.py', 42)
-    >>> document.filename
-    'file.py'
-    >>>
 """
 import ast
 import codecs
@@ -22,11 +24,10 @@ class Document(object):
 
   #TODO: property for python path
   _doc_type = 'doc'
-  def __init__(self, name=None, filename=None, line_no=None, source=None,
+  def __init__(self, name=None, filename=None, source=None,
               _type=None, doc_type=None, *args, **kw):
 
-    super(Document, self).__init__(*args, **kw)
-    self._line_no  = int(line_no) if line_no else None
+    super(Document, self).__init__()
     self._filename = self._get_filename(filename, name)
     self._name = self._get_name(filename, name)
     self._type = _type
@@ -49,7 +50,7 @@ class Document(object):
     """Private method called by constructor to setup name"""
     if name:
       #TODO: custom exception
-      return unicode(name)
+      return name
 
     elif filename:
       file_tuple = os.path.splitext(os.path.split(filename)[-1])
@@ -60,7 +61,7 @@ class Document(object):
   def _get_source(self, source):
     """Private method called by constructor to setup name"""
     if source:
-      return unicode(source)
+      return source
 
     elif self._filename is not None:
       with self.open('r') as file_obj:
@@ -89,17 +90,11 @@ class Document(object):
     return self._source
 
 
-  @property
-  def line_no(self):
-    """A string representing the line_no of a document"""
-    print self._line_no
-    return os.path.relpath(self._line_no)
-
-
   def parse(self):
     """Returns parsed AST for a document
     """
     return ast.parse(self._source)
+
 
   @property
   def parsed(self):
@@ -114,26 +109,14 @@ class Document(object):
     return self._source
 
 
-  @property
-  def line_no(self):
-    return self._line_no
-
-
   def open(self, *args, **kw):
-    """Returns a file object of the file name.
-
-    >>> document = Document('file', 'file.py')
-    >>> with document.open('r') as file_obj:
-    >>>   assert file_obj.read()
-    >>>
-    """
-    if not kw.has_key('encoding'):
-      kw['encoding'] = 'utf-8'
+    """Returns a file object of the file name."""
 
     #TODO: make exception
     assert self.filename
+    self._file_obj = open(self.filename, *args, **kw)
 
-    return codecs.open(self.filename, *args, **kw)
+    return self._file_obj
 
 
   def __repr__(self, *args, **kw):

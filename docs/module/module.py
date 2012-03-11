@@ -14,30 +14,27 @@ class Module(Document):
   Contains data repesenting:
 
   - module name
-  + author
-  + version
+  - author
+  - version
   - python path
   - docstring
   - functions
   - imports
   - variables
-
-  TODO sketch out
-    + copyright
-    + credits
-    + license
-    + version
-    + maintainer
-    + email
-    + status
+  - copyright
+  - credits
+  - license
+  - version
+  - maintainer
+  - email
+  - status
   """
   _doc_type = 'module'
 
   def __init__(self, *args, **kw):
     super(Module, self).__init__(*args, **kw)
 
-    # set metadata properties on the object
-    map(
+    map( # set metadata properties on the object
       lambda: setattr(self, x, property(fget=lambda x: self.get_var(x))),
       METADATA
     )
@@ -53,7 +50,7 @@ class Module(Document):
     if isinstance(result, ast.Str):
       return [authors.s]
 
-    elif instance(result, ast.List)
+    elif instance(result, ast.List):
       return [x.s for x in result.elts]
 
     return None
@@ -84,16 +81,18 @@ class Module(Document):
 
     Always returns a list.
     """
-    imports = QueryConstructor(ast.Import).
-    import_froms = QueryConstructor(ast.ImportFrom).
+    imports = QueryConstructor(ast.Import)
+    import_froms = QueryConstructor(ast.ImportFrom)
 
     return sorted(imports.results + import_froms, key=lambda x: x.lineno)
 
 
   @property
   def assignments(self):
-     """Lists the assignments declared in the module
+     """Lists the assignments declared in the module.
 
     Always returns a list.
     """
+
     return QueryConstructor(ast.Assign)
+
