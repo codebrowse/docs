@@ -19,14 +19,11 @@ No longer.  Docs is a Python Documentation API I for Developers.  Our language i
 Python Docs provides easy access to the following items:
 
 ### Modules
-- function name
-- 
 - author
 - version
 - python path
 - file path
 - docstring
-
 - functions
 - imports
 - variables
@@ -40,7 +37,7 @@ Python Docs provides easy access to the following items:
 - globals
 - locals
 
-? imports
+- imports
 
 ### Objects
 
@@ -58,7 +55,6 @@ Python Docs provides easy access to the following items:
 - comments
 - TODOS
 - JSON API?
-- git/mercurial integration (feature creep?)
 
 
 ## Examples
