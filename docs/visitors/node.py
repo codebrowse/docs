@@ -3,7 +3,7 @@
 DAO's are ast.AST instances which wrap existing AST instances in order to provide
 some helpful accessors.
 
-** Wrap the module object for an AST **
+**Wrap the module object for an AST**
 
     >>> import ast
     >>> import inspect
@@ -12,7 +12,6 @@ some helpful accessors.
     >>> a = Node(a)
     >>> assert a.body
 """
-
 import ast
 
 

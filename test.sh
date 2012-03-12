@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-find . -name '*.pyc' | xargs rm; nosetests --with-doctest 
+find . -name '*.pyc' | xargs rm; nosetests -x --with-doctest

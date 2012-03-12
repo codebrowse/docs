@@ -3,7 +3,7 @@
 import ast
 
 from docs.document import Document
-#from docs.imports import Import
+from docs.imports import Import
 from docs.visitors.query import QueryConstructor
 
 __author__ = ['Michael Van Veen (michael@mvanveen.net)']
@@ -102,7 +102,10 @@ class Module(Document):
     imports.visit(self.parsed)
     import_froms.visit(self.parsed)
 
-    return sorted(imports.results + import_froms.results, key=lambda x: x.lineno)
+    return [Import(x) for x in sorted(
+      imports.results + import_froms.results,
+      key=lambda x: x.lineno
+    )]
 
 
   @property
@@ -112,4 +115,3 @@ class Module(Document):
     Always returns a list.
     """
     return QueryConstructor(ast.Assign)
-

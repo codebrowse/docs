@@ -73,9 +73,3 @@ class TestModule(unittest.TestCase):
     assert os in mod.imports, \
       "Did not see os module as an import, but it is declared!"
 
-
-#def test_can_get_vars():
-#  assert '__author__' in self.mod.vars, \
-#    "Expected '__author__' in module variables!"
-#
-
