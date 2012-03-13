@@ -43,23 +43,24 @@ class TestModule(unittest.TestCase):
 
   def test_can_get_version(self):
     #TODO: grab top-level init/include packages
-    assert self.mod.version
+    assert self.mod.version == ['0.1'], 'Unexpected version value'
 
 
   def test_can_get_credits(self):
-    assert self.mod.credits
+    assert self.mod.credits == ['foo'], 'Unexpected credits value'
 
 
   def test_can_get_maintainer(self):
-    assert self.mod.maintainer
+    assert any(['Michael Van Veen' in x for x in self.mod.maintainer]), \
+      'Did not get expected maintainer!'
 
 
   def test_can_get_email(self):
-    assert self.mod.email
+    assert self.mod.email == ['pythondocs@mvanveen.net']
 
 
   def test_can_get_status(self):
-    assert self.mod.status
+    assert self.mod.status == ['Beta']
 
 
   def test_str(self):
@@ -68,8 +69,9 @@ class TestModule(unittest.TestCase):
 
 
   def test_can_get_imports(self):
-    print self.mod.imports[3].names[0]._fields
-    assert False
-    assert os in mod.imports, \
+    assert os in [x._import for x in self.mod.imports], \
       "Did not see os module as an import, but it is declared!"
 
+
+  def test_repr(self):
+    assert self.mod.__repr__() == '<[module] module_test>'

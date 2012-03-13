@@ -15,7 +15,7 @@ some helpful accessors.
 import ast
 
 
-class Node(ast.AST):
+class Node(object):
   """AST Node wrapper object"""
 
   def __init__(self, ast_obj, parent=None, *args, **kw):

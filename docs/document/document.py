@@ -120,9 +120,10 @@ class Document(object):
 
 
   def __repr__(self, *args, **kw):
-    doc_type = 'doc'
     if self._type:
-      doc_type = self._doc_type
+      doc_type = self._type
+    else:
+      doc_type = 'doc'
 
     return '<[%s] %s>' % (doc_type, self._name)
 

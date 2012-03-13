@@ -26,14 +26,25 @@ class Import(Node):
     from docs.module import Module
 
     if isinstance(self._ast_obj, ast.Import):
-      return __import_(self._ast_obj.names[0].name)
+      return __import__(self._ast_obj.names[0].name)
 
     elif isinstance(self._ast_obj, ast.ImportFrom):
       return __import__(name=self._ast_obj.module)
 
 
   @property
-  def name(self):
+  def alias(self):
     if self._ast_obj.names[0].asname:
       return self._ast_obj.names[0].asname
+
+
+    if has_attr(self._ast_obj, 'module'):
+      return '.'.join((self._ast_obj.module, self._ast_obj.names[0].name))
+
     return self._ast_obj.names[0].name
+
+
+  @property
+  def path(self):
+    if isinstance(self._ast_obj, (ast.ImportFrom, ast.Import)):
+      return '.'.join((self._ast_obj.module, self._ast_obj.names[0].name))

@@ -33,15 +33,16 @@ class Module(Document):
   - email
   - status
   """
-  _doc_type = 'module'
 
   def __init__(self, *args, **kw):
     super(Module, self).__init__(*args, **kw)
+    self._type = 'module'
 
     map( # set metadata properties on the object
       lambda x: setattr(self, x, self.get_var('__' + x + '__')),
       METADATA
     )
+
 
 
   def get_var(self, var):
