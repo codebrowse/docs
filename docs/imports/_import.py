@@ -11,22 +11,20 @@ Inherits from `docs.visitors.node.Node`.
 
 ### Examples
 
-
+>>> from docs.module import Module
+>>> m = Module(filename='docs/imports/_import.py')
+>>> len(m.imports)
+2
 """
+
 from collections import deque
 import ast
+import inspect
 
 from docs.visitors import Node
 
 class Import(Node):
-  """Wraps `ast.Import` and `ast.FromImport` objects
-
-     >>> from docs.module import Module
-     >>> m = Module(filename='docs/imports/_import.py')
-     >>> len(m.imports)
-     2
-
-  """
+  """Wraps `ast.Import` and `ast.FromImport` objects"""
 
   def __init__(self, ast_node, *args, **kw):
     super(Import, self).__init__(*([ast_node._ast_obj] + list(args)), **kw)
@@ -40,24 +38,33 @@ class Import(Node):
 
   @property
   def _import(self):
+    """Attempts to actually import the object in question"""
+
     from docs.module import Module
 
     if isinstance(self._ast_obj, ast.Import):
       return __import__(self._ast_obj.names[0].name)
 
     elif isinstance(self._ast_obj, ast.ImportFrom):
+      # Pop the modules into a queue
       name = deque(self._ast_obj.module.split('.'))
+
+      # ...keep importing modules until there aren't any left..
       mod = __import__(name.popleft())
       while len(name):
         mod = getattr(mod, name.popleft())
 
-      if hasattr(mod, self._ast_obj.names[0].name):
+      # ...and if there is a `name` component, grab it!
+      hasattr(mod, self._ast_obj.names[0].name):
         return getattr(mod, self._ast_obj.names[0].name)
 
       return mod
 
+
   @property
   def alias(self):
+    """The name the import is bound to"""
+
     if self._ast_obj.names[0].asname:
       return self._ast_obj.names[0].asname
 
@@ -70,7 +77,14 @@ class Import(Node):
 
   @property
   def path(self):
+    """The python path of the import"""
+
     if hasattr(self._ast_obj, 'module'):
       return '.'.join((self._ast_obj.module, self._ast_obj.names[0].name))
 
     return self._ast_obj.names[0].name
+
+
+  @property
+  def source(self):
+    return inspect.getsource(self._import):
