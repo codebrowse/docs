@@ -8,17 +8,34 @@ Inherits from `docs.visitors.node.Node`.
             originates.
 - `name`:   The name that the import is bound to.
 - `value`:  The result of the import (function, object, class, ???).
-"""
 
+### Examples
+
+
+"""
+from collections import deque
 import ast
 
 from docs.visitors import Node
 
 class Import(Node):
-  """Wraps `ast.Import` and `ast.FromImport` objects"""
+  """Wraps `ast.Import` and `ast.FromImport` objects
+
+     >>> from docs.module import Module
+     >>> m = Module(filename='docs/imports/_import.py')
+     >>> len(m.imports)
+     2
+
+  """
 
   def __init__(self, ast_node, *args, **kw):
-    super(Import, self).__init__(ast_node._ast_obj, *args, **kw)
+    super(Import, self).__init__(*([ast_node._ast_obj] + list(args)), **kw)
+
+  def __repr__(self, *args, **kw):
+    return '<[%s] %s>' % (
+      self._ast_obj.__class__.__name__,
+      self.path
+    )
 
 
   @property
@@ -29,8 +46,15 @@ class Import(Node):
       return __import__(self._ast_obj.names[0].name)
 
     elif isinstance(self._ast_obj, ast.ImportFrom):
-      return __import__(name=self._ast_obj.module)
+      name = deque(self._ast_obj.module.split('.'))
+      mod = __import__(name.popleft())
+      while len(name):
+        mod = getattr(mod, name.popleft())
 
+      if hasattr(mod, self._ast_obj.names[0].name):
+        return getattr(mod, self._ast_obj.names[0].name)
+
+      return mod
 
   @property
   def alias(self):
@@ -46,5 +70,7 @@ class Import(Node):
 
   @property
   def path(self):
-    if isinstance(self._ast_obj, (ast.ImportFrom, ast.Import)):
+    if hasattr(self._ast_obj, 'module'):
       return '.'.join((self._ast_obj.module, self._ast_obj.names[0].name))
+
+    return self._ast_obj.names[0].name

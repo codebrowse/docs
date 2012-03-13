@@ -19,7 +19,7 @@ class TestImport(unittest.TestCase):
 
 
   def test_from_import_a_import(self):
-    assert self._import._import == __import__('docs'), \
+    assert self._import._import == __import__('docs').module, \
       '_import attribute is wrong'
 
 
@@ -42,4 +42,4 @@ class TestImportAs(unittest.TestCase):
 
 
   def test_from_import_as_a_import(self):
-    assert self._import._import == __import__('docs.module')
+    assert self._import._import == __import__('docs').module

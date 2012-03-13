@@ -74,4 +74,5 @@ class TestModule(unittest.TestCase):
 
 
   def test_repr(self):
-    assert self.mod.__repr__() == '<[module] module_test>'
+    print self.mod.__repr__()
+    assert self.mod.__repr__() == '<[Module] module_test>'

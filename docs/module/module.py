@@ -15,34 +15,34 @@ METADATA = [
 class Module(Document):
   """Represents the data model for a Python module
 
-  Contains data repesenting:
+  ### Attributes
 
-  - module name
-  - author
-  - version
-  - python path
-  - docstring
-  - functions
-  - imports
-  - variables
-  - copyright
-  - credits
-  - license
-  - version
-  - maintainer
-  - email
-  - status
+    - module name
+    - author
+    - version
+    - python path
+    - docstring
+    - functions
+    - imports
+    - variables
+    - copyright
+    - credits
+    - license
+    - version
+    - maintainer
+    - email
+    - status
+
   """
 
   def __init__(self, *args, **kw):
     super(Module, self).__init__(*args, **kw)
-    self._type = 'module'
 
     map( # set metadata properties on the object
       lambda x: setattr(self, x, self.get_var('__' + x + '__')),
       METADATA
     )
-
+    self._type = 'Module'
 
 
   def get_var(self, var):
@@ -103,9 +103,10 @@ class Module(Document):
     imports.visit(self.parsed)
     import_froms.visit(self.parsed)
 
-    return [Import(x) for x in sorted(
-      imports.results + import_froms.results,
-      key=lambda x: x.lineno
+    return [Import(x) for x in
+      sorted(
+        imports.results + import_froms.results,
+        key=lambda x: x.lineno
     )]
 
 

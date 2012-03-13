@@ -45,6 +45,10 @@ class Node(object):
     return super(Node, self).__getattribute__(x)
 
 
+  def __repr__(self, *args, **kw):
+    return '<[%s]>' % (self._ast_obj.__class__.__name__, )
+
+
   @property
   def parent(self):
     return self._parent
