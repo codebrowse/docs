@@ -13,27 +13,7 @@ METADATA = [
 ]
 
 class Module(Document):
-  """Represents the data model for a Python module
-
-  ### Attributes
-
-    - module name
-    - author
-    - version
-    - python path
-    - docstring
-    - functions
-    - imports
-    - variables
-    - copyright
-    - credits
-    - license
-    - version
-    - maintainer
-    - email
-    - status
-
-  """
+  """Represents the data model for a Python module"""
 
   def __init__(self, *args, **kw):
     super(Module, self).__init__(*args, **kw)

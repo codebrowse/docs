@@ -1,13 +1,18 @@
 """DAO (Data-access object) for Python imports.
 
-Inherits from `docs.visitors.node.Node`.
+Inherits from `docs.visitors.node.Node`
 
-### Attributes:
+**Warning!**: This module uses `__import__` to actively import modules into
+              your current namespace.  Be sure to *only import modules you
+              trust*.
 
-- `module`: The module being imported, or the module from which the import
-            originates.
-- `name`:   The name that the import is bound to.
-- `value`:  The result of the import (function, object, class, ???).
+### Attributes
+
+- `source`:   Source code representation of the object.
+- `_ast_obj`: Original `ast.AST` object.
+- `_import`:  The object being imported
+- `path`:     Python path of the import
+- `alias`:    The name the import is bound to in context.
 
 ### Examples
 
@@ -55,7 +60,7 @@ class Import(Node):
         mod = getattr(mod, name.popleft())
 
       # ...and if there is a `name` component, grab it!
-      hasattr(mod, self._ast_obj.names[0].name):
+      if hasattr(mod, self._ast_obj.names[0].name):
         return getattr(mod, self._ast_obj.names[0].name)
 
       return mod
@@ -63,11 +68,10 @@ class Import(Node):
 
   @property
   def alias(self):
-    """The name the import is bound to"""
+    """The name the import is bound to (in context)"""
 
     if self._ast_obj.names[0].asname:
       return self._ast_obj.names[0].asname
-
 
     if has_attr(self._ast_obj, 'module'):
       return '.'.join((self._ast_obj.module, self._ast_obj.names[0].name))
@@ -87,4 +91,4 @@ class Import(Node):
 
   @property
   def source(self):
-    return inspect.getsource(self._import):
+    return inspect.getsource(self._import)
