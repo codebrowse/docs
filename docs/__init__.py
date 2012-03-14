@@ -1,4 +1,5 @@
 """Python Docs: A Python Documentation API for Developers
+
 ## Examples
 
 ** Parse a live Python object **
@@ -14,10 +15,10 @@
 >>> m.docstring
 'Wrapper object for Python modules'
 """
-
 import ast
 import inspect
 import os
+import sys
 
 #from docs.classes import Class
 #from docs.function import Function
@@ -39,6 +40,14 @@ def get(*args, **kw):
 
   if not len(args) and not (item or path or filename):
     return
+
+  if isinstance(item, basestring):
+    if item in sys.modules.keys():
+      return get(path=item)
+    try:
+      return get(__import__(item))
+    except ImportError:
+      pass
 
   if isinstance(item, (Module, Import)):
     return item
