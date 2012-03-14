@@ -1,3 +1,30 @@
+"""Python Docs: A Python Documentation API for Developers
+
+Python has wonderful, first-class support for documentation. Unfortunately,
+this incredibly thoughtful feature of the language is hidden behind large, monolithic
+suites or outdated, unsupported pieces of spaghetti. Up until now, we haven’t had easy
+programatic access to our source code and documentation.
+
+No longer. Docs is a Python Documentation API I for Developers. Our language is dynamic.
+It’s time for our documentation to start acting like it.
+
+## Examples
+
+** Parse a live Python object **
+>>> import docs
+>>> docs.get(docs)
+<[Module] __init__>
+
+** Parse file name**
+
+>>> import docs
+>>> m  = docs.get(filename='docs/module/module.py')
+>>> m
+<[Module] module>
+>>> m.docstring
+'Wrapper object for Python modules'
+"""
+
 import ast
 import inspect
 import os
@@ -12,9 +39,9 @@ from docs.module import Module
 def get(*args, **kw):
   item = kw.get('item') or len(args) and args[0] or None
   path = kw.get('path')
-  filename = kw.get('filepath')
+  filename = kw.get('filename')
 
-  if not len(args):
+  if not len(args) and not (item or path or filename):
     return
 
   if isinstance(item, (Module, Import)):
@@ -28,11 +55,13 @@ def get(*args, **kw):
     file_str = item.__file__
     if file_str.endswith('.pyc'):
       file_str = file_str[:-1]
-    print file_str
     return Module(filename=file_str)
 
   elif os.path.isdir(filename):
     return Module(filename=os.path.join(filename, '__init__.py'))
+
+  elif filename:
+    return Module(filename=filename)
 
   elif isinstance(item, ast.AST):
     if isinstance(item, ast.Import):
