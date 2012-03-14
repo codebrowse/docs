@@ -1,13 +1,4 @@
 """Python Docs: A Python Documentation API for Developers
-
-Python has wonderful, first-class support for documentation. Unfortunately,
-this incredibly thoughtful feature of the language is hidden behind large, monolithic
-suites or outdated, unsupported pieces of spaghetti. Up until now, we haven’t had easy
-programatic access to our source code and documentation.
-
-No longer. Docs is a Python Documentation API I for Developers. Our language is dynamic.
-It’s time for our documentation to start acting like it.
-
 ## Examples
 
 ** Parse a live Python object **
@@ -16,14 +7,14 @@ It’s time for our documentation to start acting like it.
 <[Module] __init__>
 
 ** Parse file name**
-
->>> import docs
->>> m  = docs.get(filename='docs/module/module.py')
+>>> import docs as d
+>>> m  = d.get(filename='docs/module/module.py')
 >>> m
 <[Module] module>
 >>> m.docstring
 'Wrapper object for Python modules'
 """
+
 import ast
 import inspect
 import os
@@ -85,8 +76,9 @@ def get(*args, **kw):
   return item
 
 
-def imports(node):
+def imports(*args, **kw):
   #TODO(mvv): add function and class
-  node = get(node)
+  node = get(*args, **kw)
   if isinstance(node, Module):
+    return node.imports
   raise TypeError('must be Module, Function, or Class')
