@@ -39,7 +39,6 @@ __copyright__ = 'Copyright 2012, Michael Van Veen'
 __license__   = 'MIT'
 __version__   = '0.1'
 __email__     = "pythondocs@mvanveen.net"
-__status__    = "Beta"
 
 def get(*args, **kw):
   item = kw.get('item') or len(args) and args[0] or None
@@ -89,5 +88,4 @@ def imports(node):
   #TODO(mvv): add function and class
   node = get(node)
   if isinstance(node, Module):
-    return node.imports
   raise TypeError('must be Module, Function, or Class')
