@@ -136,7 +136,7 @@ Furthermore, on its own, `__doc__` isn't entirely useful as a documentation API.
 
 **A:** Yes, absolutely!  However, without it we lose a lot of flexibility.  Even `pydoc` ends up
 importing at the end of the day.  Using __import__ for what it's good for gives Python Docs
-a lot of flexibility.  In general, static analysis in an environment as dynamic as Python is 
+a lot of power.  In general, static analysis in an environment as dynamic as Python is 
 somewhat limiting, and Python Docs attempts to compromise by leveraging the import system in
 for what it's good for, namely resolving python paths to objects.
        
