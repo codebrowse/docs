@@ -20,37 +20,72 @@ to be done.  Among those are several security concerns.  Most importantly,
 *note that Python Docs will import the modules and objects you throw at it (and 
 probably will for a long time), so please only use it with modules that you trust!*
 
-### Modules
+## Examples
+
+### Parsing
+
+**Access anything within sys.path**
+
+    >>> import docs
+    >>> docs.get('pydoc')
+    < [Module] pydoc>
+
+**Parse file objects**
+
+    >>> docs.get(filename='file.py')
+    < [Module] file>
+
+**Parse live objects**
+
+    >>> docs.get(docs)
+    < [Module] __init__>
 
 ## Features
 
-Python Docs provides easy access to the following items for Modules:
+Python Docs currently provides easy access to modules and imports.  Functions and 
+classes are on the way, and support for statements and expressions is in the roadmap.
 
-- function names (coming soon!)
+Stay tuned!
+
+### Modules
+
+    >>> from docs.module import Module
+    >>> m = Module(filename='docs/module/module.py')
+    >>> m
+    <[doc] module>
+
+**Docstrings**
+    
+    >>> m.docstring
+    'Wrapper object for Python modules'
+
+**Authors**
+    
+    >>> d = docs.get(docs)
+    >>> d.authors
+    >>> ['Michael Van Veen (michael@mvanvee.net)']
+
+**Other Supported Features:**
+
 - authors
-
-      >>> d = docs.get(docs)
-      >>> d.authors
-      ['Michael Van Veen (michael@mvanvee.net)']
-    
 - version
-
-     >>> d.version
-     ['0.1']
-    
+- copyright
+- maintainers
+- status
 - file path
 - docstring
 - functions
 - imports
 - variables
 
-Coming soon:
+*Coming soon:*
 
 - Support for Class and Function!
 - Variables
 - Function Names
 - python path
-- 
+
+
 ### Nice to haves:
 
 - Support for Statement and Expression
@@ -60,53 +95,6 @@ Coming soon:
 - JSON API?
 - ???
 - Profit
-
-
-## Examples
-
-### Parsing
-
-** Access anything within sys.path **
-
-    >>> import docs
-    >>> docs.get('pydoc')
-    < [Module] pydoc>
-
-** Parse file objects**
-
-    >>> docs.get(filename='file.py')
-    < [Module] file>
-
-** Parse live object **
-    >>> docs.get(docs)
-    < [Module] __init__>
-
-### Object-oriented Documentation Representaitons
-
-**Modules**
-
-    >>> from docs.module import Module
-    >>> m = Module(filename='docs/module/module.py')
-    >>> m
-    <[doc] module>
-    >>> m.docstring
-    'Wrapper object for Python modules'
-
-### Helpers
-
-** Get summary line of docstring **
-
-    >>> docstring.get(obj).docstring.summary
-    'This is the summary line of this document's docstring'
-
-
-** Get trimmed docstring (minus summary line) **
-
-    >>> docstring.get(obj).docstring.trimmed
-    """
-    This is the remainder of this document's doctstring.  Lorem ipsum
-    dolor etc. etc. etc.
-    """
 
 ## FAQ
 
@@ -144,8 +132,18 @@ Furthermore, on its own, `__doc__` isn't entirely useful as a documentation API.
 
 **A:** Python Docs uses an AST `NodeVisitor` class to directly parse the source code.  This handles most classes of source code parsing other than live objects.  The wonderful `inspect` module lets us get the source of live objects, so we've got our bases covered.
 
-**Q:** Isn't eval  
+**Q:** Isn't importing arbitrary Python dangerous/against the principles of static analysis?
 
+**A:** Yes, absolutely!  However, without it we lose a lot of flexibility.  Even `pydoc` ends up
+importing at the end of the day.  Using __import__ for what it's good for gives Python Docs
+a lot of power.  In general, static analysis in an environment as dynamic as Python is 
+somewhat limiting, and Python Docs attempts to compromise by leveraging the import system in
+for what it's good for, namely resolving python paths to objects.
+       
+In the long term future of the project, I'd like to leverage static analysis as much as possible.
+Python import hooks may provide a route to instrumenting source code execution in a way that lets
+us keep our goal of staying pure.
+      
 -----
 
 ### Influences
