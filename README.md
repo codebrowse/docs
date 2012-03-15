@@ -1,3 +1,5 @@
+[![Build Status](https://secure.travis-ci.org/mvanveen/docs.png?branch=master)](http://travis-ci.org/mvanveen/docs)
+
 Python Docs
 ===========
 
