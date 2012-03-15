@@ -36,6 +36,7 @@ probably will for a long time), so please only use it with modules that you trus
     < [Module] file>
 
 **Parse live objects**
+
     >>> docs.get(docs)
     < [Module] __init__>
 
