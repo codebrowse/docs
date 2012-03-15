@@ -135,14 +135,14 @@ Furthermore, on its own, `__doc__` isn't entirely useful as a documentation API.
 **Q:** Isn't importing arbitrary Python dangerous/against the principles of static analysis?
 
 **A:** Yes, absolutely!  However, without it we lose a lot of flexibility.  Even `pydoc` ends up
-       importing at the end of the day.  Using __import__ for what it's good for gives Python Docs
-       a lot of flexibility.  In general, static analysis in an environment as dynamic as Python is 
-       somewhat limiting, and Python Docs attempts to compromise by leveraging the import system in
-       for what it's good for, namely resolving python paths to objects.
+importing at the end of the day.  Using __import__ for what it's good for gives Python Docs
+a lot of flexibility.  In general, static analysis in an environment as dynamic as Python is 
+somewhat limiting, and Python Docs attempts to compromise by leveraging the import system in
+for what it's good for, namely resolving python paths to objects.
        
-       In the long term future of the project, I'd like to leverage static analysis as much as possible.
-       Python import hooks may provide a route to instrumenting source code execution in a way that lets
-       us keep our goal of staying pure.
+In the long term future of the project, I'd like to leverage static analysis as much as possible.
+Python import hooks may provide a route to instrumenting source code execution in a way that lets
+us keep our goal of staying pure.
       
 -----
 
