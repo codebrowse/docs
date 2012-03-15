@@ -28,8 +28,10 @@ class Document(object):
               _type=None, doc_type=None, *args, **kw):
     super(Document, self).__init__()
     self._filename = self._get_filename(filename, name)
+    self._parsed = None
     self._name = self._get_name(filename, name)
     self._type = _type
+    self._ast_type = ast.Module
 
     self._source = self._get_source(source)
 
@@ -93,7 +95,10 @@ class Document(object):
   def parse(self):
     """Returns parsed AST for a document
     """
-    return ast.parse(self._source)
+    if not self._parsed:
+      self._parsed = ast.parse(self._source)
+
+    return self._parsed
 
 
   @property

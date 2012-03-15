@@ -73,6 +73,10 @@ class TestModule(unittest.TestCase):
       "Did not see os module as an import, but it is declared!"
 
 
+  def test_can_get_functions(self):
+    assert 'test_can_get_functions' in [x.name for x in self.mod.functions]
+
+
   def test_repr(self):
     print self.mod.__repr__()
     assert self.mod.__repr__() == '<[Module] module_test>'

@@ -1,7 +1,6 @@
 import ast
 
 from docs.visitors.query import QueryConstructor
-from docs._imports import Import
 
 
 class ImportVisitor(object):

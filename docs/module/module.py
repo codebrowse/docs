@@ -4,6 +4,7 @@ import ast
 
 from docs.document import Document
 from docs.imports import Import
+from docs.visitors.function import FunctionVisitor
 from docs.visitors.query import QueryConstructor
 
 __author__ = ['Michael Van Veen (michael@mvanveen.net)']
@@ -12,7 +13,7 @@ METADATA = [
   'email',  'status'
 ]
 
-class Module(Document):
+class Module(Document, FunctionVisitor):
   """Represents the data model for a Python module"""
 
   def __init__(self, *args, **kw):
@@ -57,18 +58,6 @@ class Module(Document):
   def docstring(self):
     """Returns the module-level docstring."""
     return ast.get_docstring(self.parsed)
-
-
-  @property
-  def functions(self):
-    """Lists the functions defined in the module
-
-    Always returns a list.
-    """
-    functions = QueryConstructor(ast.FunctionDef)
-    functions.visit(self.parsed)
-
-    return functions.results
 
 
   @property
