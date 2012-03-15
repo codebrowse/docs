@@ -24,21 +24,20 @@ probably will for a long time), so please only use it with modules that you trus
 
 ### Parsing
 
-** Access anything within sys.path **
+**Access anything within sys.path**
 
     >>> import docs
     >>> docs.get('pydoc')
     < [Module] pydoc>
 
-** Parse file objects**
+**Parse file objects**
 
     >>> docs.get(filename='file.py')
     < [Module] file>
 
-** Parse live object **
+**Parse live objects**
     >>> docs.get(docs)
     < [Module] __init__>
-### Modules
 
 ## Features
 
