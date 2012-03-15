@@ -42,7 +42,7 @@ probably will for a long time), so please only use it with modules that you trus
 
 ## Features
 
-Python Docs provides easy access to Modules and Imports.  Functions and classes are on the way,
+Python Docs provides easy access to modules and imports.  Functions and classes are on the way,
 and support for statements and expressions is in the roadmap.
 
 ### Modules
@@ -63,7 +63,7 @@ and support for statements and expressions is in the roadmap.
     >>> d.authors
     >>> ['Michael Van Veen (michael@mvanvee.net)']
 
-Other Features:
+**Other Supported Features:**
 
 - authors
 - version
