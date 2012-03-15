@@ -20,58 +20,6 @@ to be done.  Among those are several security concerns.  Most importantly,
 *note that Python Docs will import the modules and objects you throw at it (and 
 probably will for a long time), so please only use it with modules that you trust!*
 
-### Modules
-
-## Features
-
-Python Docs provides easy access to the following items
-
-### Modules
-
-    >>> from docs.module import Module
-    >>> m = Module(filename='docs/module/module.py')
-    >>> m
-    <[doc] module>
-    
-    
-    >>> m.docstring
-    'Wrapper object for Python modules'
-    
-    
-    >>> d = docs.get(docs)
-    >>> d.authors
-    >>> ['Michael Van Veen (michael@mvanvee.net)']
-
-
-- authors
-- version
-- copyright
-- maintainers
-- status
-- file path
-- docstring
-- functions
-- imports
-- variables
-
-Coming soon:
-
-- Support for Class and Function!
-- Variables
-- Function Names
-- python path
-- 
-### Nice to haves:
-
-- Support for Statement and Expression
-- Dynamic import hooks
-- comments
-- TODOS
-- JSON API?
-- ???
-- Profit
-
-
 ## Examples
 
 ### Parsing
@@ -90,26 +38,61 @@ Coming soon:
 ** Parse live object **
     >>> docs.get(docs)
     < [Module] __init__>
+### Modules
 
-### Object-oriented Documentation Representaitons
+## Features
+
+Python Docs provides easy access to Modules and Imports.  Functions and classes are on the way,
+and support for statements and expressions is in the roadmap.
+
+### Modules
+
+    >>> from docs.module import Module
+    >>> m = Module(filename='docs/module/module.py')
+    >>> m
+    <[doc] module>
+
+**Docstrings**
+    
+    >>> m.docstring
+    'Wrapper object for Python modules'
+
+**Authors**
+    
+    >>> d = docs.get(docs)
+    >>> d.authors
+    >>> ['Michael Van Veen (michael@mvanvee.net)']
+
+Other Features:
+
+- authors
+- version
+- copyright
+- maintainers
+- status
+- file path
+- docstring
+- functions
+- imports
+- variables
+
+*Coming soon:*
+
+- Support for Class and Function!
+- Variables
+- Function Names
+- python path
 
 
+### Nice to haves:
 
-### Helpers
-
-** Get summary line of docstring **
-
-    >>> docstring.get(obj).docstring.summary
-    'This is the summary line of this document's docstring'
-
-
-** Get trimmed docstring (minus summary line) **
-
-    >>> docstring.get(obj).docstring.trimmed
-    """
-    This is the remainder of this document's doctstring.  Lorem ipsum
-    dolor etc. etc. etc.
-    """
+- Support for Statement and Expression
+- Dynamic import hooks
+- comments
+- TODOS
+- JSON API?
+- ???
+- Profit
 
 ## FAQ
 
