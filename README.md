@@ -42,8 +42,10 @@ probably will for a long time), so please only use it with modules that you trus
 
 ## Features
 
-Python Docs provides easy access to modules and imports.  Functions and classes are on the way,
-and support for statements and expressions is in the roadmap.
+Python Docs currently provides easy access to modules and imports.  Functions and 
+classes are on the way, and support for statements and expressions is in the roadmap.
+
+Stay tuned!
 
 ### Modules
 
