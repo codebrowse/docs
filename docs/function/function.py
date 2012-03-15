@@ -23,6 +23,12 @@ class Function(ImportVisitor, FunctionVisitor, Node):
     return args.results
 
 
+  @property
+  def docstring(self):
+    """Returns the module-level docstring."""
+    return ast.get_docstring(self._ast_obj)
+
+
   def callers(self, *args, **kw):
     """Places where this function is called"""
     raise NotImplementedError
