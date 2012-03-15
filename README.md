@@ -24,20 +24,30 @@ probably will for a long time), so please only use it with modules that you trus
 
 ## Features
 
-Python Docs provides easy access to the following items for Modules:
+Python Docs provides easy access to the following items
 
-- function names (coming soon!)
+### Modules
+
+    >>> from docs.module import Module
+    >>> m = Module(filename='docs/module/module.py')
+    >>> m
+    <[doc] module>
+    
+    
+    >>> m.docstring
+    'Wrapper object for Python modules'
+    
+    
+    >>> d = docs.get(docs)
+    >>> d.authors
+    >>> ['Michael Van Veen (michael@mvanvee.net)']
+
+
 - authors
-
-      >>> d = docs.get(docs)
-      >>> d.authors
-      ['Michael Van Veen (michael@mvanvee.net)']
-    
 - version
-
-     >>> d.version
-     ['0.1']
-    
+- copyright
+- maintainers
+- status
 - file path
 - docstring
 - functions
@@ -83,14 +93,7 @@ Coming soon:
 
 ### Object-oriented Documentation Representaitons
 
-**Modules**
 
-    >>> from docs.module import Module
-    >>> m = Module(filename='docs/module/module.py')
-    >>> m
-    <[doc] module>
-    >>> m.docstring
-    'Wrapper object for Python modules'
 
 ### Helpers
 
