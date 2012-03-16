@@ -6,6 +6,14 @@ from docs.visitors.node import Node
 from docs.visitors.query import QueryConstructor
 
 
+class NoSourceCodeError(Exception):
+  def __init__(self, *args, **kw):
+    super(NoSourceCodeError, self).__init__(*args, **kw)
+
+  def __str__(self, *args, **kw):
+    return 'Source code is not defined, as we have only received an AST object!'
+
+
 class VisitorBase(FunctionVisitor, ImportVisitor, Node):
   def __init__(self, ast_node=None, source=None, *args, **kw):
     self._source  = source or None
@@ -52,6 +60,9 @@ class VisitorBase(FunctionVisitor, ImportVisitor, Node):
   @property
   def source(self):
     """Source code of tree from the root node"""
+    if not self._source:
+      raise NoSourceCodeError
+
     return self._source
 
 
