@@ -14,6 +14,12 @@ def test_can_construct_base_with_node():
   n = Node(ast.parse(inspect.getsource(ast)))
   assert VisitorBase(n)
 
+
+def test_can_construct_base_with_source():
+    v = VisitorBase(source=inspect.getsource(ast))
+    assert v
+
+
 class VisitorBaseTest(unittest.TestCase):
 
   def setUp(self):
@@ -34,6 +40,13 @@ class VisitorBaseTest(unittest.TestCase):
     assert self.v.docstring.split('\n')[0] == 'ast'
 
 
-  def test_can_get_docstring(self):
+  def test_cannot_get_source(self):
     with self.assertRaises(NoSourceCodeError):
       self.v.source
+
+
+  def test_can_get_source(self):
+    v = VisitorBase(source=inspect.getsource(ast))
+    assert v.source.split('\n')[0] == '# -*- coding: utf-8 -*-'
+
+

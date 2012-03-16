@@ -14,18 +14,20 @@ class NoSourceCodeError(Exception):
     return 'Source code is not defined, as we have only received an AST object!'
 
 
-class VisitorBase(FunctionVisitor, ImportVisitor, Node):
+class VisitorBase(FunctionVisitor, ImportVisitor):
   def __init__(self, ast_node=None, source=None, *args, **kw):
-    self._source  = source or None
+    self._source = source
+    self._parsed = None
 
     if not ast_node and self._source:
-      ast_node = self._parsed
+      ast_node = ast.parse(self._source)
 
     elif ast_node:
       if isinstance(ast_node, Node):
         self._parsed = ast_node._ast_obj
       elif isinstance(ast_node, ast.AST):
-        self._parsed = ast_node
+        self._parsed = Node(ast_node)
+
       else:
         raise TypeError('ast_node must be an ast.AST or Node type!')
 
@@ -35,10 +37,7 @@ class VisitorBase(FunctionVisitor, ImportVisitor, Node):
     if not isinstance(ast_node, Node):
         ast_node = Node(ast_node)
 
-    super(FunctionVisitor, self).__init__(
-      *([ast_node._ast_obj] + list(args)),
-      **kw
-    )
+    super(VisitorBase, self).__init__()
 
 
   def parse(self):
