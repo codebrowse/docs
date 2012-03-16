@@ -1,5 +1,6 @@
 """Defines a generic set of AST visitors useful across a variety of objects"""
 
+from docs.visitors import base
 from docs.visitors import query
 from docs.visitors.node import Node
 

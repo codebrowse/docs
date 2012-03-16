@@ -11,6 +11,8 @@ class ImportVisitor(object):
 
     Always returns a list.
     """
+    from docs.imports import Import
+
     imports = QueryConstructor(ast.Import)
     import_froms = QueryConstructor(ast.ImportFrom)
 
@@ -22,4 +24,3 @@ class ImportVisitor(object):
         imports.results + import_froms.results,
         key=lambda x: x.lineno
     )]
-
