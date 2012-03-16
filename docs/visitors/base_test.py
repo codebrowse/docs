@@ -1,3 +1,5 @@
+from __future__ import with_statement
+
 import ast
 import inspect
 import unittest
@@ -48,5 +50,3 @@ class VisitorBaseTest(unittest.TestCase):
   def test_can_get_source(self):
     v = VisitorBase(source=inspect.getsource(ast))
     assert v.source.split('\n')[0] == '# -*- coding: utf-8 -*-'
-
-
