@@ -1,5 +1,3 @@
-from __future__ import with_statement
-
 import ast
 import inspect
 import unittest
