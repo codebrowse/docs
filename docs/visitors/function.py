@@ -10,6 +10,8 @@ class FunctionVisitor(object):
 
   @property
   def functions(self):
+    from docs.function.function import Function
+
     functions = QueryConstructor(ast.FunctionDef)
     functions.visit(self.parsed)
 
@@ -19,4 +21,3 @@ class FunctionVisitor(object):
         key=lambda x: x.lineno
     )]
 
-from docs.function.function import Function
