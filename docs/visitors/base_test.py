@@ -43,8 +43,7 @@ class VisitorBaseTest(unittest.TestCase):
 
 
   def test_cannot_get_source(self):
-    with self.assertRaises(NoSourceCodeError):
-      self.v.source
+    self.failUnlessRaises(NoSourceCodeError, getattr, self.v, 'source')
 
 
   def test_can_get_source(self):
