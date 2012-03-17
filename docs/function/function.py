@@ -1,18 +1,21 @@
 import ast
 
-from docs.visitors.function import FunctionVisitor
-from docs.visitors._import import ImportVisitor
-from docs.visitors.query import Node
+from docs.visitors.base import VisitorBase
 
-class Function(ImportVisitor, FunctionVisitor, Node):
+class Function(VisitorBase):
   """Wraps `ast.FunctionDef` objects"""
 
-  def __init__(self, ast_node, *args, **kw):
-    super(Function, self).__init__(*([ast_node._ast_obj] + list(args)), **kw)
+  def __init__(self, ast_node=None, source=None, *args, **kw):
+    super(Function, self).__init__(ast_node=ast_node, source=source)
 
 
   def __repr__(self, *args, **kw):
-    return '<[Function] %s>' % (self._ast_obj.name, )
+    return '<[Function] %s>' % (self.parsed.name, )
+
+
+  @property
+  def name(self):
+    return self.parsed.name
 
 
   @property
@@ -26,7 +29,7 @@ class Function(ImportVisitor, FunctionVisitor, Node):
   @property
   def docstring(self):
     """Returns the module-level docstring."""
-    return ast.get_docstring(self._ast_obj)
+    return ast.get_docstring(self.parsed)
 
 
   def callers(self, *args, **kw):
