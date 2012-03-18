@@ -17,14 +17,13 @@ class FunctionConstructionTest(unittest.TestCase):
 
   def test_cannot_construct_function_with_non_func(self):
       fun = ast.parse("""class foo(object):\n  pass""").body[0]
-      with self.assertRaises(TypeError):
-        Function(ast_node=fun)
+      self.assertRaises(TypeError, Function, ast_node=fun)
 
 
   def test_cannot_contruct_function_with_non_func_source(self):
     f = Function(source="""class foo(object):\n  pass""")
-    with self.assertRaises(TypeError):
-      f.parsed
+
+    self.assertRaises(TypeError, getattr, f, 'parsed')
 
 
 class FunctionTest(unittest.TestCase):
