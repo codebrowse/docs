@@ -42,7 +42,7 @@ probably will for a long time), so please only use it with modules that you trus
 The `functions` attribute is defined for `Function`, `Module`, and `Class`.
 
     >>> d = docs.get(docs)
-    >>> d.functions()
+    >>> d.functions
     [<[Function] get>, <[Function] imports>, <[Function] functions>, <[Function] classes>]
 
 ### Imports
@@ -55,7 +55,7 @@ The `functions` attribute is defined for `Function`, `Module`, and `Class`.
 **Object Attributes**
 
     >>> d = docs.get(docs)
-    >>> len(d.imports(docs))
+    >>> len(d.imports)
     9
 
 
