@@ -60,11 +60,6 @@ class QueryConstructor(object):
       if isinstance(value, basestring):
         items.append('node.%s == "%s"' % (attr, value))
 
-      elif isinstance(value, ast.AST):
-        items.append(
-          'isinstance(node.%s, ast.%s)' % (attr, value.__name__)
-        )
-
       else:
         items.append('node.%s == %s' % (attr, value))
 
