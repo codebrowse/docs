@@ -2,6 +2,7 @@
 
 import ast
 import inspect
+import os
 
 from docs.imports import Import
 from docs.visitors.base import VisitorBase
@@ -61,7 +62,7 @@ class Module(VisitorBase):
 
   @property
   def filename(self):
-    return self._filename
+    return os.path.relpath(self._filename)
 
 
   @property
