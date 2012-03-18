@@ -20,8 +20,8 @@ import inspect
 import os
 import sys
 
-#from docs.classes import Class
-#from docs.function import Function
+from docs.classes import Class
+from docs.function import Function
 from docs.imports import Import
 from docs.visitors import Node
 from docs.module import Module
@@ -89,8 +89,29 @@ def get(*args, **kw):
 
 
 def imports(*args, **kw):
-  #TODO(mvv): add function and class
+  """Returns the imports declared for a function, class or module"""
+
   node = get(*args, **kw)
-  if isinstance(node, Module):
+  if isinstance(node, Module, Class, Function):
     return node.imports
   raise TypeError('must be Module, Function, or Class')
+
+
+def functions(*args, **kw):
+  """Returns the functions declared for a function, class or module"""
+
+  node = get(*args, **kw)
+  if isinstance(node, Module, Class, Function):
+    return node.functions
+  raise TypeError('must be Module, Function, or Class')
+
+
+def classes(*args, **kw):
+  """Returns the classes declared for a function, class or module"""
+
+  node = get(*args, **kw)
+  if isinstance(node, Module, Class, Function):
+    return node.classes
+
+  raise TypeError('must be Module, Function, or Class')
+
