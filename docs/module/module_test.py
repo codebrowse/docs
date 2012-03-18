@@ -95,4 +95,4 @@ class TestModule(unittest.TestCase):
   def test_repr(self):
     print self.mod.__repr__()
     assert self.mod.__repr__() == \
-      '<[Module] /Users/mvanveen/docs/docs/module/module_test.py>'
+      '<[Module] docs/module/module_test.py>'

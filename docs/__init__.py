@@ -5,7 +5,7 @@
 ** Parse a live Python object **
 >>> import docs
 >>> docs.get(docs)
-<[Module] /Users/mvanveen/docs/docs/__init__.py>
+<[Module] docs/__init__.py>
 
 ** Parse file name**
 >>> import docs as d

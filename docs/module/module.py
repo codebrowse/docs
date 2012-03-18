@@ -67,7 +67,7 @@ class Module(VisitorBase):
 
   @property
   def name(self):
-    return self._path or self._filename or ''
+    return self.path or self.filename or ''
 
 
   def get_var(self, var):
