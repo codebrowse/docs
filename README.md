@@ -148,12 +148,10 @@ Stay tuned!
     docs/__init__.py
 
 
-
 *Coming soon:*
-- Variables
-- Function Names
-- python path
 
+- Variables
+- python paths and filenames across all objects
 
 ### Nice to haves:
 
