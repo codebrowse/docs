@@ -52,4 +52,3 @@ class VisitorBaseTest(unittest.TestCase):
 
   def test_can_get_classes(self):
     assert len(self.v.classes) == 2, 'Expected 2 classes in ast module!'
-    assert False
