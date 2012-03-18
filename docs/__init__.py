@@ -57,24 +57,34 @@ def get(*args, **kw):
     return get(path._import)
 
   elif inspect.ismodule(item):
-    file_str = item.__file__
-    if file_str.endswith('.pyc'):
-      file_str = file_str[:-1]
+    file_str = inspect.getsourcefile(item)
     return Module(filename=file_str)
-
-  elif os.path.isdir(filename):
-    return Module(filename=os.path.join(filename, '__init__.py'))
-
   elif filename:
     return Module(filename=filename)
 
   elif isinstance(item, ast.AST):
-    if isinstance(item, ast.Import):
-      return Import(item)
+    if isinstance(item, ast.Module):
+      return Module(ast_node=item)
+
+    elif isinstance(item, (ast.Import, ast.ImportFrom)):
+      return Import(Node(item))
+
+    elif isinstance(item, ast.ClassDef):
+      return Class(item)
+
+    elif isinstance(item, ast.FunctionDef):
+      return Function(item)
+
     return Node(item)
+
 
   elif isinstance(item, (list, tuple)):
     return [get(y) for y in item]
+
+
+  elif os.path.isdir(filename):
+    return Module(filename=os.path.join(filename, '__init__.py'))
+
 
   elif inspect.isclass(item):
     souce = inspect.getsource(item)
@@ -88,16 +98,15 @@ def get(*args, **kw):
   return item
 
 
-def imports(*args, **kw):
+def get_imports(*args, **kw):
   """Returns the imports declared for a function, class or module"""
-
   node = get(*args, **kw)
   if isinstance(node, (Module, Class, Function)):
     return node.imports
   raise TypeError('must be Module, Function, or Class')
 
 
-def functions(*args, **kw):
+def get_functions(*args, **kw):
   """Returns the functions declared for a function, class or module"""
 
   node = get(*args, **kw)
@@ -106,7 +115,7 @@ def functions(*args, **kw):
   raise TypeError('must be Module, Function, or Class')
 
 
-def classes(*args, **kw):
+def get_classes(*args, **kw):
   """Returns the classes declared for a function, class or module"""
 
   node = get(*args, **kw)

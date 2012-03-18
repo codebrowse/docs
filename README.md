@@ -34,7 +34,7 @@ probably will for a long time), so please only use it with modules that you trus
 **Top-level accessor**
 
     >>> import docs
-    >>> len(docs.functions(docs))
+    >>> len(docs.get_functions(docs))
     4
 
 **Object Attributes**
@@ -50,12 +50,12 @@ The `functions` attribute is defined for `Function`, `Module`, and `Class`.
 **Top-level accessor**
 
     >>> import docs
-    >>> docs.imports(docs)
+    >>> docs.get_imports(docs)
 
 **Object Attributes**
 
     >>> d = docs.get(docs)
-    >>> len(docs.imports(docs))
+    >>> len(d.imports(docs))
     9
 
 
@@ -64,7 +64,7 @@ The `functions` attribute is defined for `Function`, `Module`, and `Class`.
 **Top-level accessor**
 
     >>> import docs
-    >>> docs.classes('ast')
+    >>> docs.get_classes('ast')
     [<[Class] NodeVisitor>, <[Class] NodeTransformer>]
 
 **Object Attributes**
