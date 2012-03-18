@@ -78,8 +78,8 @@ The `functions` attribute is defined for `Function`, `Module`, and `Class`.
 **Access anything within `sys.path`**
 
     >>> import docs
-    >>> docs.get('ast')
-    < [Module] pydoc>
+    >>> docs.get(path='ast')
+    < [Module] ../../../System/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/ast.py>
 
 **Parse file objects**
 
