@@ -76,11 +76,14 @@ def get(*args, **kw):
   elif isinstance(item, (list, tuple)):
     return [get(y) for y in item]
 
-  #elif inspect.isclass(item):
-  #  return Class(item)
+  elif inspect.isclass(item):
+    souce = inspect.getsource(item)
+    return Class(ast_node=ast.parse(source), source=source)
 
-  #elif inspect.isfunction(item):
-  #  return Function(item):
+
+  elif inspect.isfunction(item):
+    souce = inspect.getsource(item)
+    return Class(ast_node=ast.parse(source), source=source)
 
   return item
 

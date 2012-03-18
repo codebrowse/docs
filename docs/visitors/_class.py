@@ -9,10 +9,10 @@ class ClassVisitor(object):
   # explicit.
 
   @property
-  def classes(self):
+  def classes(self, **kw):
     from docs.classes import Class
 
-    functions = QueryConstructor(ast.ClassDef)
+    functions = QueryConstructor(ast.ClassDef, **kw)
     functions.visit(self.parsed)
 
     return [Class(x) for x in

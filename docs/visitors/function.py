@@ -9,10 +9,10 @@ class FunctionVisitor(object):
   # explicit.
 
   @property
-  def functions(self):
+  def functions(self, **kw):
     from docs.function.function import Function
 
-    functions = QueryConstructor(ast.FunctionDef)
+    functions = QueryConstructor(ast.FunctionDef, **kw)
     functions.visit(self.parsed)
 
     return [Function(x) for x in

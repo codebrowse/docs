@@ -11,9 +11,13 @@ Michael Van Veen
 
 ## Abstract
 
-Python has wonderful, first-class support for documentation.  Unfortunately, this incredibly thoughtful feature of the language is hidden behind large, monolithic suites or outdated, unsupported pieces of spaghetti.  Up until now, we haven't had easy programatic access to our source code and documentation.  
+Python has wonderful, first-class support for documentation.  Unfortunately, 
+this incredibly thoughtful feature of the language is hidden behind large, 
+monolithic suites or outdated, unsupported pieces of spaghetti.  Up until now, 
+we haven't had easy programatic access to our source code and documentation.  
 
-No longer.  Docs is a Python Documentation API I for Developers.  Our language is dynamic.  It's time for our documentation to start acting like it.
+No longer.  Docs is a Python Documentation API I for Developers.  Our language 
+is dynamic.  It's time for our documentation to start acting like it.
 
 ### Warning
 
@@ -24,9 +28,53 @@ probably will for a long time), so please only use it with modules that you trus
 
 ## Examples
 
+
+### Functions
+
+**Top-level accessor**
+
+    >>> import docs
+    >>> len(docs.functions(docs))
+    3
+
+**Object Attributes**
+
+The `functions` attribute is defined for `Function`, `Module`, and `Class`.
+
+    >>> d = docs.get(docs)
+    >>> d.functions(name='get')
+    <Function [get]>] 
+
+### Imports
+
+**Top-level accessor**
+
+    >>> import docs
+    >>> len(docs.imports(docs))
+
+**Object Attributes**
+
+    >>> d = docs.get(docs)
+    >>> d.imports(name='ast')
+    <Module [ast]>
+
+
+### Classes
+
+**Top-level accessor**
+
+    >>> import docs
+    >>> docs.classes(docs)
+
+**Object Attributes**
+
+    >>> d = docs.get(docs)
+    >>> d.classes
+    [<[Class] ast.NodeVisitor>, <[Class] ast.NodeTransformer>]
+
 ### Parsing
 
-**Access anything within sys.path**
+**Access anything within `sys.path`**
 
     >>> import docs
     >>> docs.get('pydoc')
@@ -49,6 +97,7 @@ classes are on the way, and support for statements and expressions is in the roa
 
 Stay tuned!
 
+
 ### Modules
 
     >>> from docs.module import Module
@@ -56,33 +105,51 @@ Stay tuned!
     >>> m
     <[doc] module>
 
-**Docstrings**
-    
-    >>> m.docstring
-    'Wrapper object for Python modules'
 
 **Authors**
     
     >>> d = docs.get(docs)
     >>> d.authors
-    >>> ['Michael Van Veen (michael@mvanvee.net)']
+    >>> ['Michael Van Veen (michael@mvanveen.net)']
 
-**Other Supported Features:**
+**Docstrings**
+    
+    >>> m.docstring
+    'Wrapper object for Python modules 
 
-- authors
-- version
-- copyright
-- maintainers
-- status
-- file path
-- docstring
-- functions
-- imports
-- variables
+**Version**
+
+     >>> d = docs.get(docs)
+     >>> d.version
+     ['0.1']
+
+**Copyright**
+
+     >>> d = docs.get(docs)
+     >>> d.copyright
+     ['Copyright © 2012, Michael Van Veen']
+    
+**Maintainers**
+
+    >>> d = docs.get(docs)
+    >>> d.maintainers
+    ['Michael Van Veen (michael@mvanveen.net)']
+
+**Status**
+
+    >>> d = docs.get(docs)
+    >>> d.status
+    ['Beta']
+ 
+**Filename**
+
+    >>> d = docs.get(docs)
+    >>> d.filename
+    docs/__init__.py
+
+
 
 *Coming soon:*
-
-- Support for Class and Function!
 - Variables
 - Function Names
 - python path

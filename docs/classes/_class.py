@@ -12,6 +12,10 @@ class Class(VisitorBase):
     super(Class, self).__init__(ast_node=ast_node, source=source)
 
 
+  def __repr__(self, *args, **kw):
+    return '<[Class] %s>' % (self.name, )
+
+
   @property
   def name(self):
     return self.parsed.name
@@ -20,6 +24,7 @@ class Class(VisitorBase):
   @property
   def inherits(self):
     return [x.id for x in self.parsed.bases]
+
 
   def parse(self):
     if not self._parsed:

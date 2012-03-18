@@ -14,7 +14,7 @@ class Function(VisitorBase):
 
 
   def __repr__(self, *args, **kw):
-    return '<[Function] %s>' % (self.parsed.name, )
+    return '<[Function] %s>' % (self.name, )
 
 
   @property

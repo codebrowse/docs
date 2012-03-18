@@ -52,3 +52,6 @@ class VisitorBaseTest(unittest.TestCase):
 
   def test_can_get_classes(self):
     assert len(self.v.classes) == 2, 'Expected 2 classes in ast module!'
+
+  def test_can_filter_function_name(self):
+    assert [x for x in self.v.functions if x.name == 'parse']
