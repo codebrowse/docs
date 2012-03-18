@@ -59,7 +59,10 @@ def get(*args, **kw):
   elif inspect.ismodule(item):
     file_str = inspect.getsourcefile(item)
     return Module(filename=file_str)
+
   elif filename:
+    if os.path.isdir(filename):
+      return Module(filename=os.path.join(filename, '__init__.py'))
     return Module(filename=filename)
 
   elif isinstance(item, ast.AST):
@@ -82,12 +85,9 @@ def get(*args, **kw):
     return [get(y) for y in item]
 
 
-  elif os.path.isdir(filename):
-    return Module(filename=os.path.join(filename, '__init__.py'))
-
 
   elif inspect.isclass(item):
-    souce = inspect.getsource(item)
+    source = inspect.getsource(item)
     return Class(ast_node=ast.parse(source), source=source)
 
 
