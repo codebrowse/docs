@@ -92,7 +92,7 @@ def imports(*args, **kw):
   """Returns the imports declared for a function, class or module"""
 
   node = get(*args, **kw)
-  if isinstance(node, Module, Class, Function):
+  if isinstance(node, (Module, Class, Function)):
     return node.imports
   raise TypeError('must be Module, Function, or Class')
 
@@ -101,7 +101,7 @@ def functions(*args, **kw):
   """Returns the functions declared for a function, class or module"""
 
   node = get(*args, **kw)
-  if isinstance(node, Module, Class, Function):
+  if isinstance(node, (Module, Class, Function)):
     return node.functions
   raise TypeError('must be Module, Function, or Class')
 
@@ -110,7 +110,7 @@ def classes(*args, **kw):
   """Returns the classes declared for a function, class or module"""
 
   node = get(*args, **kw)
-  if isinstance(node, Module, Class, Function):
+  if isinstance(node, (Module, Class, Function)):
     return node.classes
 
   raise TypeError('must be Module, Function, or Class')

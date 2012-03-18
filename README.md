@@ -35,28 +35,28 @@ probably will for a long time), so please only use it with modules that you trus
 
     >>> import docs
     >>> len(docs.functions(docs))
-    3
+    4
 
 **Object Attributes**
 
 The `functions` attribute is defined for `Function`, `Module`, and `Class`.
 
     >>> d = docs.get(docs)
-    >>> d.functions(name='get')
-    <Function [get]>] 
+    >>> d.functions()
+    [<[Function] get>, <[Function] imports>, <[Function] functions>, <[Function] classes>]
 
 ### Imports
 
 **Top-level accessor**
 
     >>> import docs
-    >>> len(docs.imports(docs))
+    >>> docs.imports(docs)
 
 **Object Attributes**
 
     >>> d = docs.get(docs)
-    >>> d.imports(name='ast')
-    <Module [ast]>
+    >>> len(docs.imports(docs))
+    9
 
 
 ### Classes
@@ -64,31 +64,32 @@ The `functions` attribute is defined for `Function`, `Module`, and `Class`.
 **Top-level accessor**
 
     >>> import docs
-    >>> docs.classes(docs)
+    >>> docs.classes('ast')
+    [<[Class] NodeVisitor>, <[Class] NodeTransformer>]
 
 **Object Attributes**
 
-    >>> d = docs.get(docs)
+    >>> d = docs.get('ast')
     >>> d.classes
-    [<[Class] ast.NodeVisitor>, <[Class] ast.NodeTransformer>]
+    [<[Class] NodeVisitor>, <[Class] NodeTransformer>]
 
 ### Parsing
 
 **Access anything within `sys.path`**
 
     >>> import docs
-    >>> docs.get('pydoc')
+    >>> docs.get('ast')
     < [Module] pydoc>
 
 **Parse file objects**
 
     >>> docs.get(filename='file.py')
-    < [Module] file>
+    < [Module] file.py>
 
 **Parse live objects**
 
     >>> docs.get(docs)
-    < [Module] __init__>
+    < [Module] docs/__init__.py>
 
 ## Features
 
@@ -103,8 +104,7 @@ Stay tuned!
     >>> from docs.module import Module
     >>> m = Module(filename='docs/module/module.py')
     >>> m
-    <[doc] module>
-
+    <[Module] docs/module/module.py>
 
 **Authors**
     
