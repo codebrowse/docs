@@ -1,5 +1,6 @@
 import ast
 
+from docs.visitors._class import ClassVisitor
 from docs.visitors.function import FunctionVisitor
 from docs.visitors._import import ImportVisitor
 from docs.visitors.node import Node
@@ -14,7 +15,7 @@ class NoSourceCodeError(Exception):
     return 'Source code is not defined, as we have only received an AST object!'
 
 
-class VisitorBase(FunctionVisitor, ImportVisitor):
+class VisitorBase(ClassVisitor, FunctionVisitor, ImportVisitor):
   """Base class for Module, Function, and Class types
 
   Provides properties for:

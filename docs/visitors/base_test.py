@@ -5,6 +5,7 @@ import unittest
 from docs.visitors.base import VisitorBase, NoSourceCodeError
 from docs.visitors.node import Node
 
+
 def test_can_construct_base():
   a = ast.parse(inspect.getsource(ast))
   assert VisitorBase(a)
@@ -28,7 +29,7 @@ class VisitorBaseTest(unittest.TestCase):
 
 
   def test_can_get_imports(self):
-    assert len(self.v.imports) == 4, 'Expected 4 imports in AST module!'
+    assert len(self.v.imports) == 4, 'Expected 4 imports in ast module!'
 
 
   def test_can_get_imports(self):
@@ -47,3 +48,8 @@ class VisitorBaseTest(unittest.TestCase):
   def test_can_get_source(self):
     v = VisitorBase(source=inspect.getsource(ast))
     assert v.source.split('\n')[0] == '# -*- coding: utf-8 -*-'
+
+
+  def test_can_get_classes(self):
+    assert len(self.v.classes) == 2, 'Expected 2 classes in ast module!'
+    assert False
