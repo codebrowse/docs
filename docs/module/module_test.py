@@ -17,15 +17,30 @@ __email__      = "pythondocs@mvanveen.net"
 __status__     = "Beta"
 
 
-def test_can_construct_module():
-  """Module doc object can be constructed with kwargs"""
-  mod = Module(name='module_test', filename=__file__)
-  assert mod, 'Could not construct module!'
+class TestConstructModule(unittest.TestCase):
+  def test_can_construct_filenamet(self):
+    mod = Module(filename=__file__)
+
+
+  def test_can_construct_filenamet(self):
+    mod = Module(path='docs.module.module_test')
+
+
+  def test_can_construct_filenamet(self):
+    with open(__file__, 'r') as file_obj:
+      source = file_obj.read()
+    mod = Module(source=source)
+
+
+  def test_can_construct_filenamet(self):
+    with open(__file__, 'r') as file_obj:
+      node = ast.parse(file_obj.read())
+    mod = Module(ast_node=node)
 
 
 class TestModule(unittest.TestCase):
   def setUp(self):
-    self.mod = Module(name='module_test', filename=__file__)
+    self.mod = Module(filename=__file__)
 
 
   def test_can_get_authors(self):
@@ -79,4 +94,5 @@ class TestModule(unittest.TestCase):
 
   def test_repr(self):
     print self.mod.__repr__()
-    assert self.mod.__repr__() == '<[Module] module_test>'
+    assert self.mod.__repr__() == \
+      '<[Module] /Users/mvanveen/docs/docs/module/module_test.py>'

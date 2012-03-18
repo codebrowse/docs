@@ -5,13 +5,13 @@
 ** Parse a live Python object **
 >>> import docs
 >>> docs.get(docs)
-<[Module] __init__>
+<[Module] /Users/mvanveen/docs/docs/__init__.py>
 
 ** Parse file name**
 >>> import docs as d
 >>> m  = d.get(filename='docs/module/module.py')
 >>> m
-<[Module] module>
+<[Module] docs/module/module.py>
 >>> m.docstring
 'Wrapper object for Python modules'
 """

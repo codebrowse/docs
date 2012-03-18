@@ -1,10 +1,10 @@
 """Wrapper object for Python modules"""
 
 import ast
+import inspect
 
-from docs.document import Document
 from docs.imports import Import
-from docs.visitors.function import FunctionVisitor
+from docs.visitors.base import VisitorBase
 from docs.visitors.query import QueryConstructor
 
 __author__ = ['Michael Van Veen (michael@mvanveen.net)']
@@ -13,17 +13,60 @@ METADATA = [
   'email',  'status'
 ]
 
-class Module(Document, FunctionVisitor):
+class Module(VisitorBase):
   """Represents the data model for a Python module"""
 
-  def __init__(self, *args, **kw):
-    super(Module, self).__init__(*args, **kw)
+  def __init__(self, ast_node=None, source=None, path=None, filename=None):
+    if filename:
+      with open(filename, 'r') as file_obj:
+        source = file_obj.read()
+      ast_node = ast.parse(source)
+      self._filename = filename
+      self._path = path
+
+    elif path:
+      source = inspect.getmodule()
+      ast_node = ast.parse(self._source)
+      self._filename = inspect.getsourcefile(Import(path=path)._import)
+      self._path = path
+
+    else:
+      self._path = None
+      self._filename = None
+
+    if ast_node and not isinstance(ast_node, ast.Module):
+      raise TypeError('Expected an ast.Module object')
+
+    super(Module, self).__init__(ast_node=ast_node, source=source)
 
     map( # set metadata properties on the object
       lambda x: setattr(self, x, self.get_var('__' + x + '__')),
       METADATA
     )
     self._type = 'Module'
+
+
+  def __repr__(self, *args, **kw):
+    return '<[Module] %s>' % (self.name, )
+
+
+  def __str__(self, *args, **kw):
+    return self.source
+
+
+  @property
+  def path(self):
+    return self._path
+
+
+  @property
+  def filename(self):
+    return self._filename
+
+
+  @property
+  def name(self):
+    return self._path or self._filename or ''
 
 
   def get_var(self, var):
@@ -34,6 +77,7 @@ class Module(Document, FunctionVisitor):
 
     if variables.results:
       result = variables.results[0].parent.value
+
     else:
       return []
 
@@ -52,31 +96,6 @@ class Module(Document, FunctionVisitor):
     author = self.get_var('__author__')
     authors = self.get_var('__authors__')
     return author + authors
-
-
-  @property
-  def docstring(self):
-    """Returns the module-level docstring."""
-    return ast.get_docstring(self.parsed)
-
-
-  @property
-  def imports(self):
-    """Lists the imports declared in the module
-
-    Always returns a list.
-    """
-    imports = QueryConstructor(ast.Import)
-    import_froms = QueryConstructor(ast.ImportFrom)
-
-    imports.visit(self.parsed)
-    import_froms.visit(self.parsed)
-
-    return [Import(x) for x in
-      sorted(
-        imports.results + import_froms.results,
-        key=lambda x: x.lineno
-    )]
 
 
   @property
