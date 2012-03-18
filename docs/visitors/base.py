@@ -15,6 +15,17 @@ class NoSourceCodeError(Exception):
 
 
 class VisitorBase(FunctionVisitor, ImportVisitor):
+  """Base class for Module, Function, and Class types
+
+  Provides properties for:
+
+    - AST object
+    - docstring
+    - imports
+    - functions
+    - source code
+  """
+
   def __init__(self, ast_node=None, source=None, *args, **kw):
     self._source = source
     self._parsed = None
@@ -26,7 +37,7 @@ class VisitorBase(FunctionVisitor, ImportVisitor):
       if isinstance(ast_node, Node):
         self._parsed = ast_node._ast_obj
       elif isinstance(ast_node, ast.AST):
-        self._parsed = Node(ast_node)
+        self._parsed = ast_node
 
       else:
         raise TypeError('ast_node must be an ast.AST or Node type!')
