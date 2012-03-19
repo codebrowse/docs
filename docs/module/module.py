@@ -51,10 +51,6 @@ class Module(VisitorBase):
     return '<[Module] %s>' % (self.name, )
 
 
-  def __str__(self, *args, **kw):
-    return self.source
-
-
   @property
   def path(self):
     return self._path

@@ -1,5 +1,6 @@
 import ast
 
+from docs.util import indentation
 from docs.visitors._class import ClassVisitor
 from docs.visitors.function import FunctionVisitor
 from docs.visitors._import import ImportVisitor
@@ -31,8 +32,13 @@ class VisitorBase(ClassVisitor, FunctionVisitor, ImportVisitor):
     self._source = source
     self._parsed = None
 
+    if self._source:
+      self._indent_length = indentation.indent_length(self._source)
+    else:
+      self._indent_length = None
+
     if not ast_node and self._source:
-      ast_node = ast.parse(self._source)
+      ast_node = ast.parse(self.source)
 
     elif ast_node:
       if isinstance(ast_node, Node):
@@ -50,6 +56,13 @@ class VisitorBase(ClassVisitor, FunctionVisitor, ImportVisitor):
         ast_node = Node(ast_node)
 
     super(VisitorBase, self).__init__()
+
+
+  def __str__(self, *args, **kw):
+    if not self._source:
+      raise NoSourceCodeError
+
+    return self._source
 
 
   def parse(self):
@@ -74,7 +87,9 @@ class VisitorBase(ClassVisitor, FunctionVisitor, ImportVisitor):
     if not self._source:
       raise NoSourceCodeError
 
-    return self._source
+    return '\n'.join([
+      x[self._indent_length:] for x in self._source.split('\n')
+    ])
 
 
   @property

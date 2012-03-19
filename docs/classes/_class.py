@@ -28,14 +28,15 @@ class Class(VisitorBase):
 
   def parse(self):
     if not self._parsed:
-      assert self._source
-      self._parsed = ast.parse(self._source)
+      assert self.source
+      self._parsed = ast.parse(self.source)
 
-      assert len(self._parsed.body) == 1, 'Expected just one function definition!'
+      assert len(self._parsed.body) == 1, \
+        'Expected just one function definition!'
+
       if not isinstance(self._parsed.body[0], ast.ClassDef):
         raise TypeError('Expected an ast.ClassDef!')
 
       self._parsed = self._parsed.body[0]
 
     return self._parsed
-
