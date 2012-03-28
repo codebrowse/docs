@@ -97,3 +97,5 @@ class VisitorBase(ClassVisitor, FunctionVisitor, ImportVisitor):
     """Returns the module-level docstring."""
     return ast.get_docstring(self.parsed)
 
+  def __eq__(self, other):
+    return self.source == other.source

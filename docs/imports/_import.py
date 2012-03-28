@@ -53,7 +53,6 @@ class Import(Node):
     elif isinstance(self._ast_obj, ast.ImportFrom):
       # Pop the modules into a queue
       name = deque(self._ast_obj.module.split('.'))
-      print self._ast_obj.module
       # ...keep importing modules until there aren't any left..
       mod = __import__(name.popleft())
       while len(name):
