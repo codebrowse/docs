@@ -1,1 +1,1 @@
-from docs import module as m
+from docs import modules as m

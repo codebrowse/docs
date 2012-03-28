@@ -3,7 +3,7 @@ import ast
 import docs as d
 from docs.classes import Class
 from docs.function import Function
-from docs.module import Module
+from docs.modules import Module
 
 
 def test_can_get_functions():
@@ -11,7 +11,7 @@ def test_can_get_functions():
 
 
 def test_can_get_imports():
-  assert len(d.get_imports(filename='docs/__init__.py')) == 9
+  assert len(d.get_imports(filename='docs/__init__.py')) == 10
 
 
 def test_can_get_classes():
@@ -47,7 +47,7 @@ def test_can_get_docs_str():
 
 
 def test_can_get_docs():
-  assert isinstance(d.get(Module(filename='docs/module/module.py')), Module)
+  assert isinstance(d.get(Module(filename='docs/modules/module.py')), Module)
 
 
 def test_can_get_docs_str():
@@ -55,15 +55,15 @@ def test_can_get_docs_str():
 
 
 def test_can_get_docs_local_path():
-  assert d.get(path='docs.module')
+  assert d.get(path='docs.modules')
 
 
 def test_can_get_docs_str():
-  assert d.get(filename='docs/module/module.py')
+  assert d.get(filename='docs/modules/module.py')
 
 
 def test_docs_can_get_file_dir():
-  assert d.get(filename='docs/module/')
+  assert d.get(filename='docs/modules/')
 
 
 def test_can_get_class():

@@ -1,1 +1,1 @@
-from docs import module
+from docs import modules

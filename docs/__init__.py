@@ -9,7 +9,8 @@ from docs.classes import Class
 from docs.function import Function
 from docs.imports import Import
 from docs.visitors import Node
-from docs.module import Module
+from docs.modules import Module
+from docs.package import Package
 
 __author__    = 'Michael Van Veen (michael@mvanveen.net)'
 __copyright__ = 'Copyright 2012, Michael Van Veen'
@@ -30,9 +31,9 @@ def get(*args, **kw):
 
   ** Parse file name**
   >>> import docs as d
-  >>> m  = d.get(filename='docs/module/module.py')
+  >>> m  = d.get(filename='docs/modules/module.py')
   >>> m
-  <[Module] docs/module/module.py>
+  <[Module] docs/modules/module.py>
   >>> m.docstring
   'Wrapper object for Python modules'
 
@@ -62,7 +63,7 @@ def get(*args, **kw):
 
   elif filename:
     if os.path.isdir(filename):
-      return Module(filename=os.path.join(filename, '__init__.py'))
+      return Package(filename=filename)
     return Module(filename=filename)
 
   elif isinstance(item, ast.AST):

@@ -20,4 +20,3 @@ class FunctionVisitor(object):
         functions.results,
         key=lambda x: x.lineno
     )]
-
