@@ -3,7 +3,7 @@ import inspect
 import unittest
 
 from docs.imports import Import
-from docs.module import Module
+from docs.modules import Module
 
 
 def test_construct_mod():
@@ -22,17 +22,18 @@ class TestImport(unittest.TestCase):
     self.mod = Module(source=self.source, ast_node=ast.parse(self.source))
     self._import = self.mod.imports[0]
 
+
   def test_from_import_a_module(self):
     assert self._import.module == 'docs', 'module name does not match'
 
 
   def test_from_import_a_import(self):
-    assert self._import._import == __import__('docs').module, \
+    assert self._import._import == __import__('docs').modules, \
       '_import attribute is wrong'
 
 
   def test_from_import_a_path(self):
-    assert self._import.path== 'docs.module', 'path is incorrect'
+    assert self._import.path == 'docs.modules', 'path is incorrect'
 
 
 class TestImportAs(unittest.TestCase):
@@ -45,7 +46,7 @@ class TestImportAs(unittest.TestCase):
 
 
   def test_from_import_as_a_module(self):
-    assert self._import.path == 'docs.module', 'path is incorrect'
+    assert self._import.path == 'docs.modules', 'path is incorrect'
 
 
   def test_from_import_as_a_alias(self):
@@ -53,4 +54,4 @@ class TestImportAs(unittest.TestCase):
 
 
   def test_from_import_as_a_import(self):
-    assert self._import._import == __import__('docs').module
+    assert self._import._import == __import__('docs').modules
