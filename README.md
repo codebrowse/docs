@@ -93,8 +93,8 @@ The `functions` attribute is defined for `Function`, `Module`, and `Class`.
 
 ## Features
 
-Python Docs currently provides easy access to modules and imports, functions and 
-classes. It may support statements and expressions in the future.
+Python Docs currently provides easy access to packages, modules, imports, 
+functions and classes. It may support statements and expressions in the future.
 
 Stay tuned!
 
