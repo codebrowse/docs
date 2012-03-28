@@ -10,6 +10,7 @@ from docs.function import Function
 from docs.imports import Import
 from docs.visitors import Node
 from docs.modules import Module
+from docs.package import Package
 
 __author__    = 'Michael Van Veen (michael@mvanveen.net)'
 __copyright__ = 'Copyright 2012, Michael Van Veen'
@@ -62,7 +63,7 @@ def get(*args, **kw):
 
   elif filename:
     if os.path.isdir(filename):
-      return Module(filename=os.path.join(filename, '__init__.py'))
+      return Package(filename=filename)
     return Module(filename=filename)
 
   elif isinstance(item, ast.AST):
