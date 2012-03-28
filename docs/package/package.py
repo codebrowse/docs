@@ -14,9 +14,9 @@ class Package(object):
   - modules (modules in the package)
   - subpackages
 
-  - imports   (__init__.py)
-  - functions (__init__.py)
-  - classes   (__init__.py)
+  - imports   (from __init__.py)
+  - functions (from __init__.py)
+  - classes   (from __init__.py)
   """
 
   def __init__(self, filename=None):
@@ -62,7 +62,9 @@ class Package(object):
 
 
   def _get_modules(self):
-    return [Module(filename=x) for x in glob.glob(os.path.join(self._dir, '*.py'))]
+    return [
+      Module(filename=x) for x in  glob.glob(os.path.join(self._dir, '*.py'))
+    ]
 
 
   @property
