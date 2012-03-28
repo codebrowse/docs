@@ -16,7 +16,7 @@ Inherits from `docs.visitors.node.Node`
 
 ### Examples
 
->>> from docs.module import Module
+>>> from docs.modules import Module
 >>> m = Module(filename='docs/imports/_import.py')
 >>> len(m.imports)
 2
@@ -45,7 +45,7 @@ class Import(Node):
   def _import(self):
     """Attempts to actually import the object in question"""
 
-    from docs.module import Module
+    from docs.modules import Module
 
     if isinstance(self._ast_obj, ast.Import):
       return __import__(self._ast_obj.names[0].name)
@@ -53,7 +53,6 @@ class Import(Node):
     elif isinstance(self._ast_obj, ast.ImportFrom):
       # Pop the modules into a queue
       name = deque(self._ast_obj.module.split('.'))
-
       # ...keep importing modules until there aren't any left..
       mod = __import__(name.popleft())
       while len(name):
