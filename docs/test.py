@@ -11,7 +11,7 @@ def test_can_get_functions():
 
 
 def test_can_get_imports():
-  assert len(d.get_imports(filename='docs/__init__.py')) == 9
+  assert len(d.get_imports(filename='docs/__init__.py')) == 10
 
 
 def test_can_get_classes():
