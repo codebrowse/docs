@@ -7,6 +7,9 @@ from docs.modules import Module
 
 
 def test_can_get_functions():
+  print d
+  print d.get_functions(d)
+
   assert len(d.get_functions(d)) == 4
 
 
