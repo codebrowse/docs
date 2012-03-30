@@ -44,11 +44,11 @@ class Import(Node):
   @property
   def _import(self):
     """Attempts to actually import the object in question"""
-
     from docs.modules import Module
 
     if isinstance(self._ast_obj, ast.Import):
-      return __import__(self._ast_obj.names[0].name)
+      name = self._ast_obj.names[0].name
+      return __import__(name, fromlist=name.split('.'))
 
     elif isinstance(self._ast_obj, ast.ImportFrom):
       # Pop the modules into a queue

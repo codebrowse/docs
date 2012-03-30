@@ -19,7 +19,7 @@ class PackageTest(unittest.TestCase):
 
 
   def test_get_modules(self):
-    assert docs.get(path='docs') in self._pak.modules, \
+    assert docs.get(path='docs.test') in self._pak.modules, \
       "Expected docs __init__.py file to be in modules attribute"
 
 
