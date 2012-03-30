@@ -27,7 +27,7 @@ def get(*args, **kw):
   ** Parse a live Python object **
   >>> import docs
   >>> docs.get(docs)
-  <[Package] /Users/mvanveen/docs/docs>
+  <[Package] docs>
 
   ** Parse file name**
   >>> import docs as d
