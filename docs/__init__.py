@@ -59,11 +59,13 @@ def get(*args, **kw):
 
   elif inspect.ismodule(item):
     file_str = inspect.getsourcefile(item)
-    return Module(filename=file_str)
+    return get(filename=file_str)
 
   elif filename:
     if os.path.isdir(filename):
       return Package(filename=filename)
+    elif os.path.split(filename)[-1] == '__init__.py':
+      return Package(filename=os.path.dirname(filename))
     return Module(filename=filename)
 
   elif isinstance(item, ast.AST):

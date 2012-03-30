@@ -71,6 +71,35 @@ class Package(object):
   def init_file(self, *args, **kw):
     return self._init_file
 
+  @property
+  def authors(self, *args, **kw):
+    return self._init_file.authors
+
+
+  @property
+  def copyright(self, *args, **kw):
+    return self._init_file.copyright
+
+
+  @property
+  def license(self, *args, **kw):
+    return self._init_file.license
+
+
+  @property
+  def version(self, *args, **kw):
+    return self._init_file.version
+
+
+  @property
+  def email(self, *args, **kw):
+    return self._init_file.email
+
+
+  @property
+  def status(self, *args, **kw):
+    return self._init_file.status
+
 
   @property
   def packages(self, *args, **kw):
