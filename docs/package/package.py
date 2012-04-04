@@ -122,6 +122,11 @@ class Package(object):
 
 
   @property
+  def source(self, *args, **kw):
+    return self._init_file.source
+
+
+  @property
   def functions(self, *args, **kw):
     return self._init_file.functions
 
