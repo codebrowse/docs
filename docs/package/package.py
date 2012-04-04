@@ -38,7 +38,7 @@ class Package(object):
 
 
   def __repr__(self, *args, **kw):
-    return '<[Package] %s>'% (self._dir, )
+    return '<[Package] %s>'% (self.name, )
 
 
   def __eq__(self, other):
@@ -70,6 +70,12 @@ class Package(object):
   @property
   def init_file(self, *args, **kw):
     return self._init_file
+
+
+  @property
+  def name(self, *args, **kw):
+    return os.path.relpath(self._dir)
+
 
   @property
   def authors(self, *args, **kw):
