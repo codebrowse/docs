@@ -93,6 +93,11 @@ class Package(object):
 
 
   @property
+  def maintainers(self, *args, **kw):
+    return self._init_file.maintainers
+
+
+  @property
   def copyright(self, *args, **kw):
     return self._init_file.copyright
 

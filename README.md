@@ -43,7 +43,7 @@ The `functions` attribute is defined for `Function`, `Module`, and `Class`.
 
     >>> d = docs.get(docs)
     >>> d.functions
-    [<[Function] get>, <[Function] imports>, <[Function] functions>, <[Function] classes>]
+    [<[Function] get>, <[Function] get_imports>, <[Function] get_functions>, <[Function] get_classes>]
 
 ### Imports
 
@@ -51,12 +51,13 @@ The `functions` attribute is defined for `Function`, `Module`, and `Class`.
 
     >>> import docs
     >>> docs.get_imports(docs)
-
+    [<[Import] ast>, <[Import] inspect>, <[Import] os>, <[Import] sys>, <[ImportFrom] docs.classes.Class>, <[ImportFrom] docs.function.Function>, <[ImportFrom] docs.imports.Import>, <[ImportFrom] docs.visitors.Node>, <[ImportFrom] docs.modules.Module>, <[ImportFrom] docs.package.Package>]
+    
 **Object Attributes**
 
     >>> d = docs.get(docs)
     >>> len(d.imports)
-    9
+    10
 
 
 ### Classes
@@ -79,17 +80,17 @@ The `functions` attribute is defined for `Function`, `Module`, and `Class`.
 
     >>> import docs
     >>> docs.get(path='ast')
-    < [Module] ../../../System/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/ast.py>
+    <[Module] ../../../System/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/ast.py>
 
 **Parse file objects**
 
-    >>> docs.get(filename='file.py')
-    < [Module] file.py>
+    >>> docs.get(filename='docs/modules/module.py')
+    <[Module] docs/modules/module.py>
 
 **Parse live objects**
 
     >>> docs.get(docs)
-    < [Module] docs/__init__.py>
+    <[Package] docs>
 
 ## Features
 
@@ -101,21 +102,21 @@ Stay tuned!
 
 ### Modules
 
-    >>> from docs.module import Module
-    >>> m = Module(filename='docs/module/module.py')
+    >>> from docs.modules import Module
+    >>> m = Module(filename='docs/modules/module.py')
     >>> m
-    <[Module] docs/module/module.py>
+    <[Module] docs/modules/module.py>
 
 **Authors**
     
     >>> d = docs.get(docs)
     >>> d.authors
-    >>> ['Michael Van Veen (michael@mvanveen.net)']
+    ['Michael Van Veen (michael@mvanveen.net)']
 
 **Docstrings**
     
     >>> m.docstring
-    'Wrapper object for Python modules 
+    'Wrapper object for Python modules'
 
 **Version**
 
@@ -127,7 +128,7 @@ Stay tuned!
 
      >>> d = docs.get(docs)
      >>> d.copyright
-     ['Copyright © 2012, Michael Van Veen']
+     ['Copyright 2012, Michael Van Veen']
     
 **Maintainers**
 
@@ -145,7 +146,7 @@ Stay tuned!
 
     >>> d = docs.get(docs)
     >>> d.filename
-    docs/__init__.py
+    'docs/__init__.py'
 
 
 *Coming soon:*

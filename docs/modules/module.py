@@ -10,8 +10,8 @@ from docs.visitors.query import QueryConstructor
 
 __author__ = ['Michael Van Veen (michael@mvanveen.net)']
 METADATA = [
-  'copyright', 'credits', 'license', 'version', 'maintainer',
-  'email',  'status'
+  'copyright', 'credits', 'license', 'version', 'email',
+  'status'
 ]
 
 class Module(VisitorBase):
@@ -57,6 +57,19 @@ class Module(VisitorBase):
 
 
   @property
+  def maintainer(self):
+    return self.maintainers
+
+
+  @property
+  def maintainers(self):
+    """Returns a list of authors of a module"""
+    maintainers = self.get_var('__maintainers__')
+    maintainer = self.get_var('__maintainer__')
+    return maintainer + maintainers
+
+
+  @property
   def filename(self):
     return os.path.relpath(self._filename)
 
@@ -85,6 +98,11 @@ class Module(VisitorBase):
       return [x.s for x in result.elts]
 
     return []
+
+
+  @property
+  def author(self):
+    return self.authors
 
 
   @property

@@ -18,6 +18,7 @@ __license__   = 'MIT'
 __version__   = '0.1'
 __email__     = "pythondocs@mvanveen.net"
 __status__    = "Beta"
+__maintainer__ = ['Michael Van Veen (michael@mvanveen.net)']
 
 def get(*args, **kw):
   """Main accessor into Python docs
