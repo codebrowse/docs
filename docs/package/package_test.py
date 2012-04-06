@@ -37,6 +37,19 @@ class PackageTest(unittest.TestCase):
     mod = Module(filename='docs/__init__.py')
     assert [x.name == y.name for x, y in zip(mod.functions, self._pak.functions)]
 
+
   def test_get_functions(self):
     mod = Module(filename='docs/__init__.py')
     assert self._pak.source == mod.source
+
+
+  def test_dir(self):
+    assert self._pak.dir == 'docs'
+    assert Package(filename='docs/modules').dir == 'docs/modules'
+
+
+  def test_filename(self):
+    assert self._pak.filename == 'docs/__init__.py'
+    assert Package(filename='docs/modules').filename == \
+      'docs/modules/__init__.py'
+

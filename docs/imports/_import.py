@@ -79,6 +79,11 @@ class Import(Node):
 
 
   @property
+  def name(self):
+    return self.path
+
+
+  @property
   def path(self):
     """The python path of the import"""
 

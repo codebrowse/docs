@@ -68,6 +68,16 @@ class Package(object):
 
 
   @property
+  def filename(self, *args, **kw):
+    return os.path.join(self.dir, '__init__.py')
+
+
+  @property
+  def dir(self, *args, **kw):
+    return os.path.relpath(self._dir)
+
+
+  @property
   def init_file(self, *args, **kw):
     return self._init_file
 

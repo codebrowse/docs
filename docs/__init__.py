@@ -54,7 +54,13 @@ def get(*args, **kw):
     return item
 
   elif path:
-    path = Import(Node(ast.parse('import %s' % (path, )).body[0]))
+    path = path.split('.')
+    if len(path) > 1:
+      node = Node(ast.parse('from %s import %s' % ('.'.join(path[:-1]), path[-1])).body[0])
+    else:
+      node = Node(ast.parse('import %s' % (path[0], )).body[0])
+
+    path = Import(node)
     return get(path._import)
 
   elif inspect.ismodule(item):
