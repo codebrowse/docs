@@ -1,9 +1,6 @@
 import ast
 
 from docs.util import indentation
-from docs.visitors._class import ClassVisitor
-from docs.visitors.function import FunctionVisitor
-from docs.visitors._import import ImportVisitor
 from docs.visitors.node import Node
 from docs.visitors.query import QueryConstructor
 
@@ -16,7 +13,7 @@ class NoSourceCodeError(Exception):
     return 'Source code is not defined, as we have only received an AST object!'
 
 
-class VisitorBase(ClassVisitor, FunctionVisitor, ImportVisitor):
+class VisitorBase(object):
   """Base class for Module, Function, and Class types
 
   Provides properties for:
@@ -65,6 +62,55 @@ class VisitorBase(ClassVisitor, FunctionVisitor, ImportVisitor):
     return self._source
 
 
+  @property
+  def classes(self, **kw):
+    from docs.classes import Class
+
+    functions = QueryConstructor(ast.ClassDef, **kw)
+    functions.visit(self.parsed)
+
+    return [Class(x) for x in
+      sorted(
+        functions.results,
+        key=lambda x: x.lineno
+    )]
+
+
+  @property
+  def functions(self, **kw):
+    from docs.function.function import Function
+
+    functions = QueryConstructor(ast.FunctionDef, **kw)
+    functions.visit(self.parsed)
+
+    return [Function(x) for x in
+      sorted(
+        functions.results,
+        key=lambda x: x.lineno
+    )]
+
+
+  @property
+  def imports(self, **kw):
+    """Lists the imports declared in the module
+
+    Always returns a list.
+    """
+    from docs.imports import Import
+
+    imports = QueryConstructor(ast.Import, **kw)
+    import_froms = QueryConstructor(ast.ImportFrom, **kw)
+
+    imports.visit(self.parsed)
+    import_froms.visit(self.parsed)
+
+    return [Import(x) for x in
+      sorted(
+        imports.results + import_froms.results,
+        key=lambda x: x.lineno
+    )]
+
+
   def parse(self):
     """Returns parsed AST for a document
     """
@@ -85,6 +131,7 @@ class VisitorBase(ClassVisitor, FunctionVisitor, ImportVisitor):
   def source(self):
     """Source code of tree from the root node"""
     if not self._source:
+      # TODO: try to get it from the module and then raise if that fails
       raise NoSourceCodeError
 
     return '\n'.join([
@@ -96,6 +143,7 @@ class VisitorBase(ClassVisitor, FunctionVisitor, ImportVisitor):
   def docstring(self):
     """Returns the module-level docstring."""
     return ast.get_docstring(self.parsed)
+
 
   def __eq__(self, other):
     if all(hasattr(x, 'source') for x in [self, other]):

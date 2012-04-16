@@ -153,5 +153,10 @@ class Package(object):
 
 
   @property
+  def classes(self, *args, **kw):
+    return self._init_file.classes
+
+
+  @property
   def imports(self, *args, **kw):
     return self._init_file.imports

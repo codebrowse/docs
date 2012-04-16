@@ -1,10 +1,12 @@
-"""Python Docs: A Python Documentation API for Developers"""
+"""Python Docs: A Python Documentation API for Developers
+"""
 
 import ast
 import inspect
 import os
 import sys
 
+#from docs.lib import codegen
 from docs.classes import Class
 from docs.function import Function
 from docs.imports import Import
@@ -23,20 +25,22 @@ __maintainer__ = ['Michael Van Veen (michael@mvanveen.net)']
 def get(*args, **kw):
   """Main accessor into Python docs
 
-  ## Examples
+  Examples
 
-  ** Parse a live Python object **
-  >>> import docs
-  >>> docs.get(docs)
-  <[Package] docs>
+  1) Parse a live Python object
 
-  ** Parse file name**
-  >>> import docs as d
-  >>> m  = d.get(filename='docs/modules/module.py')
-  >>> m
-  <[Module] docs/modules/module.py>
-  >>> m.docstring
-  'Wrapper object for Python modules'
+      >>> import docs
+      >>> docs.get(docs)
+      <[Package] docs>
+
+  2) Parse file name
+
+      >>> import docs as d
+      >>> m  = d.get(filename='docs/modules/module.py')
+      >>> m
+      <[Module] docs/modules/module.py>
+      >>> m.docstring
+      'Wrapper object for Python modules'
 
   """
 
