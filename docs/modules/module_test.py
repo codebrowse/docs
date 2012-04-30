@@ -17,6 +17,9 @@ __email__      = "pythondocs@mvanveen.net"
 __status__     = "Beta"
 
 
+def dummy_foo():
+  pass
+
 class TestConstructModule(unittest.TestCase):
   def test_can_construct_filenamet(self):
     mod = Module(filename=__file__)
@@ -89,7 +92,7 @@ class TestModule(unittest.TestCase):
 
 
   def test_can_get_functions(self):
-    assert 'test_can_get_functions' in [x.name for x in self.mod.functions]
+    assert 'dummy_foo' in [x.name for x in self.mod.functions]
 
 
   def test_repr(self):

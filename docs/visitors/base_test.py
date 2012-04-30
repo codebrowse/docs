@@ -33,8 +33,9 @@ class VisitorBaseTest(unittest.TestCase):
 
 
   def test_can_get_imports(self):
-    assert len(self.v.functions) == 16, \
-      'Espected 16 function defs in AST module!'
+    num_funs = 10
+    assert len(self.v.functions) == num_funs, \
+      'Espected %s function defs in AST module!' % (num_funs, )
 
 
   def test_can_get_docstring(self):
