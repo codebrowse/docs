@@ -83,3 +83,6 @@ def test_can_get_function():
 def test_can_get_none():
   assert not d.get()
 
+
+def test_can_get_opcode_def_op():
+  assert d.get(path='opcode.def_op')
