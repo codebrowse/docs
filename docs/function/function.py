@@ -18,6 +18,13 @@ class Function(VisitorBase):
 
 
   @property
+  def parent(self):
+    if hasattr(self.parsed, 'parent'):
+      return self.parsed.parent
+    return None
+
+
+  @property
   def name(self):
     return self.parsed.name
 

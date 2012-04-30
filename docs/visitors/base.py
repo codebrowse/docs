@@ -65,7 +65,6 @@ class VisitorBase(object):
   @property
   def classes(self, **kw):
     from docs.classes import Class
-
     functions = QueryConstructor(ast.ClassDef, **kw)
     functions.visit(self.parsed)
 
@@ -73,7 +72,7 @@ class VisitorBase(object):
       sorted(
         functions.results,
         key=lambda x: x.lineno
-    )]
+    ) if x.parent and x.parent._ast_obj == self.parsed]
 
 
   @property
@@ -83,11 +82,13 @@ class VisitorBase(object):
     functions = QueryConstructor(ast.FunctionDef, **kw)
     functions.visit(self.parsed)
 
-    return [Function(x) for x in
-      sorted(
-        functions.results,
-        key=lambda x: x.lineno
-    )]
+    return [
+      Function(x) for x in
+        sorted(
+          functions.results,
+          key=lambda x: x.lineno
+      ) if x.parent and x.parent._ast_obj == self.parsed
+    ]
 
 
   @property

@@ -32,14 +32,16 @@ class QueryVisitor(ast.NodeVisitor):
     self._parent = None
 
 
-  def generic_visit(self, node, *args, **kw):
-    node = Node(node, parent=self._parent)
+  def generic_visit(self, node, parent=None, *args, **kw):
+    #print 'node %s' % (node)
+    nodes = ast.iter_child_nodes(node)
+    node = Node(node, parent=parent)
 
     if safe_eval(self._query, node):
       self._nodes.append(node)
 
-    self._parent = node
-    super(QueryVisitor, self).generic_visit(node, *args, **kw)
+    call = lambda x: self.generic_visit(x, parent=node)
+    map(call, nodes)
 
 
   @property
