@@ -38,7 +38,7 @@ probably will for a long time), so please only use it with modules that you trus
     <[Module] docs/modules/module.py>
 
 **Authors**
-    
+    >>> import docs
     >>> d = docs.get(docs)
     >>> d.authors
     ['Michael Van Veen (michael@mvanveen.net)']
@@ -76,7 +76,7 @@ probably will for a long time), so please only use it with modules that you trus
 
     >>> d = docs.get(docs)
     >>> d.filename
-    'docs/__init__.py'    
+    'docs/__init__.py'
 
 ### Functions
 
