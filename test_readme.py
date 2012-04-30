@@ -1,3 +1,4 @@
 import doctest
 
-doctest.testfile('README.md')
+def test_readme():
+  doctest.testfile('README.md')
