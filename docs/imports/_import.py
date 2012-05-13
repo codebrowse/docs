@@ -56,7 +56,10 @@ class Import(Node):
       # ...keep importing modules until there aren't any left..
       mod = __import__(name.popleft())
       while len(name):
-        mod = getattr(mod, name.popleft())
+        if inspect.ismodule(mod):
+          mod = getattr(mod, name.popleft())
+        else:
+          mod = __import__(name.popleft())
 
       # ...and if there is a `name` component, grab it!
       if hasattr(mod, self._ast_obj.names[0].name):
