@@ -38,6 +38,7 @@ probably will for a long time), so please only use it with modules that you trus
     <[Module] docs/modules/module.py>
 
 **Authors**
+
     >>> import docs
     >>> d = docs.get(docs)
     >>> d.authors
