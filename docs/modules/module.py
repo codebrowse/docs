@@ -111,12 +111,3 @@ class Module(VisitorBase):
     author = self.get_var('__author__')
     authors = self.get_var('__authors__')
     return author + authors
-
-
-  @property
-  def assignments(self):
-    """Lists the assignments declared in the module.
-
-    Always returns a list.
-    """
-    return QueryConstructor(ast.Assign)

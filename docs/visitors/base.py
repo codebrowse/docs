@@ -74,6 +74,30 @@ class VisitorBase(object):
         key=lambda x: x.lineno
     ) if x.parent and x.parent._ast_obj == self.parsed]
 
+  @property
+  def assignments(self, **kw):
+    assignments = QueryConstructor(ast.Assign, **kw)
+    assignments.visit(self.parsed)
+
+    return [{
+      'line_no': x.lineno,
+       'col_no': x.col_offset,
+       'node': x
+      } for x in assignments.results
+    ]
+
+  @property
+  def calls(self, **kw):
+    calls = QueryConstructor(ast.Call, **kw)
+    calls.visit(self.parsed)
+
+    return [{
+      'line_no': x.lineno,
+       'col_no': x.col_offset,
+       'node': x
+      } for x in calls.results
+    ]
+
 
   @property
   def functions(self, **kw):
@@ -81,7 +105,6 @@ class VisitorBase(object):
 
     functions = QueryConstructor(ast.FunctionDef, **kw)
     functions.visit(self.parsed)
-
     return [
       Function(x) for x in
         sorted(
@@ -144,6 +167,21 @@ class VisitorBase(object):
   def docstring(self):
     """Returns the module-level docstring."""
     return ast.get_docstring(self.parsed)
+
+
+  @property
+  def line_no(self):
+    return self.parsed.line_no
+
+
+  @property
+  def col_offset(self):
+    return self.parsed.col_offset
+
+
+  @property
+  def line_no(self):
+    return self.col_offset
 
 
   def __eq__(self, other):

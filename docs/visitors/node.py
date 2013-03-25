@@ -14,7 +14,6 @@ some helpful accessors.
 """
 import ast
 
-
 class Node(object):
   """AST Node wrapper object"""
 
