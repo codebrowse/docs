@@ -7,7 +7,7 @@ Python Docs
 
 Michael Van Veen
 
-![Machine Simple](https://github.com/mvanveen/docs/raw/master/press.jpg)
+![Machine Simple](https://github.com/codebrowse/docs/raw/master/press.jpg)
 
 ## Abstract
 
